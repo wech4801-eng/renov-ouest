@@ -1,0 +1,213 @@
+---
+import { formEndpoint } from '@/data/company';
+
+const projectTypes = [
+  ['enduit-monocouche', 'Enduit monocouche'],
+  ['facade', 'Façade'],
+  ['peinture-interieure', 'Peinture intérieure'],
+  ['pose-de-sols', 'Pose de sols'],
+  ['renovation', 'Rénovation'],
+  ['autre', 'Autre'],
+];
+const row = 'display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr))';
+const inputStyle = 'min-height: 46px';
+const errStyle = 'margin: 6px 0 0; font-size: 12.5px; color: var(--color-accent-800)';
+---
+<div class="blueprint" style="position: relative; padding: clamp(22px, 3vw, 36px)">
+  <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+
+  <!-- Ecran de confirmation, affiche apres un envoi reussi. -->
+  <div id="rw-success" hidden role="status" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+    <span class="tag tag-outline">Demande envoyée</span>
+    <p style="font-family: var(--font-heading); font-size: clamp(26px, 2.8vw, 36px); margin: 0; text-transform: uppercase; letter-spacing: -0.02em">Merci pour votre demande.</p>
+    <p style="font-size: 16px; line-height: 1.65; margin: 0; max-width: 46ch">
+      Nous avons bien reçu votre message et reviendrons vers vous dans les meilleurs délais.
+    </p>
+    <button class="btn btn-secondary" type="button" id="rw-again" style="white-space: nowrap; min-height: 46px; padding: 12px 18px">
+      Envoyer une autre demande
+    </button>
+  </div>
+
+  <form id="devis" method="post" action={formEndpoint} data-endpoint={formEndpoint} novalidate
+        style="display: flex; flex-direction: column; gap: 18px">
+    <h2 style="font-family: var(--font-heading); font-size: clamp(24px, 2.6vw, 32px); margin: 0; text-transform: uppercase; letter-spacing: -0.02em">
+      Votre demande
+    </h2>
+
+    <p id="rw-error" hidden role="alert"
+       style="margin: 0; padding: 12px 14px; border: 1px solid var(--color-accent-600); font-size: 14.5px; color: var(--color-accent-800); background: var(--color-accent-100)">
+      L’envoi a échoué. Vous pouvez réessayer, ou nous appeler au 06 63 72 98 00.
+    </p>
+
+    <div style={row}>
+      <div class="field">
+        <label for="rw-nom">Nom / prénom *</label>
+        <input class="input" id="rw-nom" name="nom" type="text" autocomplete="name" required
+               aria-describedby="err-nom" style={inputStyle} />
+        <p class="field-err" id="err-nom" hidden style={errStyle}></p>
+      </div>
+      <div class="field">
+        <label for="rw-tel">Téléphone *</label>
+        <input class="input" id="rw-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel"
+               required aria-describedby="err-telephone" style={inputStyle} />
+        <p class="field-err" id="err-telephone" hidden style={errStyle}></p>
+      </div>
+    </div>
+
+    <div style={row}>
+      <div class="field">
+        <label for="rw-email">Email *</label>
+        <input class="input" id="rw-email" name="email" type="email" autocomplete="email" inputmode="email"
+               required aria-describedby="err-email" style={inputStyle} />
+        <p class="field-err" id="err-email" hidden style={errStyle}></p>
+      </div>
+      <div class="field">
+        <label for="rw-type">Type de projet *</label>
+        <select class="input" id="rw-type" name="type" required aria-describedby="err-type" style={inputStyle}>
+          <option value="">Choisir…</option>
+          {projectTypes.map(([v, l]) => <option value={v}>{l}</option>)}
+        </select>
+        <p class="field-err" id="err-type" hidden style={errStyle}></p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="rw-adresse">Adresse du chantier</label>
+      <input class="input" id="rw-adresse" name="adresse" type="text" autocomplete="street-address" style={inputStyle} />
+    </div>
+
+    <div style={row}>
+      <div class="field">
+        <label for="rw-budget">Budget indicatif (facultatif)</label>
+        <input class="input" id="rw-budget" name="budget" type="text" style={inputStyle} />
+      </div>
+      <div class="field">
+        <label for="rw-date">Date souhaitée (facultatif)</label>
+        <input class="input" id="rw-date" name="date" type="date" style={inputStyle} />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="rw-message">Message *</label>
+      <textarea class="input" id="rw-message" name="message" rows="5" required aria-describedby="err-message"
+                placeholder="Nature des travaux, surface approximative, état actuel du support…"></textarea>
+      <p class="field-err" id="err-message" hidden style={errStyle}></p>
+    </div>
+
+    <!-- Anti-spam : piege a robots + horodatage d'ouverture. -->
+    <div class="hp" aria-hidden="true">
+      <label for="rw-hp">Ne pas remplir</label>
+      <input id="rw-hp" name="societe" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="hidden" name="ts" id="rw-ts" value="" />
+
+    <p style="margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--color-neutral-600); max-width: 60ch">
+      Les informations transmises servent uniquement à traiter votre demande de devis. Voir la
+      <a href="/politique-confidentialite">politique de confidentialité</a>.
+    </p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+      <button class="btn btn-primary blueprint" type="submit" id="rw-submit"
+              style="white-space: nowrap; min-height: 54px; padding: 15px 26px; font-size: 16px">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span id="rw-submit-label">Envoyer ma demande</span>
+      </button>
+      <span id="rw-loading" hidden aria-live="polite"
+            style="font-family: var(--font-mono); font-size: 12px; color: var(--color-accent-700)">envoi en cours…</span>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('devis') as HTMLFormElement | null;
+  const success = document.getElementById('rw-success');
+  const errorBox = document.getElementById('rw-error');
+  const loading = document.getElementById('rw-loading');
+  const submit = document.getElementById('rw-submit') as HTMLButtonElement | null;
+  const label = document.getElementById('rw-submit-label');
+  const ts = document.getElementById('rw-ts') as HTMLInputElement | null;
+  const again = document.getElementById('rw-again');
+
+  if (form && success && errorBox && loading && submit && label && ts && again) {
+    ts.value = String(Date.now());
+
+    const required = ['nom', 'telephone', 'email', 'type', 'message'];
+    const ids: Record<string, string> = {
+      nom: 'err-nom', telephone: 'err-telephone', email: 'err-email',
+      type: 'err-type', message: 'err-message',
+    };
+    const messages: Record<string, string> = {
+      nom: 'Merci d’indiquer votre nom.',
+      telephone: 'Merci d’indiquer un numéro de téléphone valide.',
+      email: 'Merci d’indiquer une adresse email valide.',
+      type: 'Merci de sélectionner un type de projet.',
+      message: 'Merci de décrire votre projet en quelques mots.',
+    };
+
+    const validate = (name: string): boolean => {
+      const el = form.elements.namedItem(name) as HTMLInputElement | null;
+      const err = document.getElementById(ids[name]);
+      if (!el || !err) return true;
+      const v = el.value.trim();
+      let ok = v.length > 0;
+      if (ok && name === 'email') ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+      if (ok && name === 'telephone') ok = v.replace(/[^\d+]/g, '').length >= 9;
+      if (ok && name === 'message') ok = v.length >= 10;
+      el.setAttribute('aria-invalid', String(!ok));
+      err.textContent = ok ? '' : messages[name];
+      err.hidden = ok;
+      return ok;
+    };
+
+    required.forEach((name) => {
+      const el = form.elements.namedItem(name) as HTMLElement | null;
+      el?.addEventListener('blur', () => validate(name));
+      el?.addEventListener('input', () => {
+        if (el.getAttribute('aria-invalid') === 'true') validate(name);
+      });
+    });
+
+    const setBusy = (busy: boolean) => {
+      submit.disabled = busy;
+      loading.hidden = !busy;
+      label.textContent = busy ? 'Envoi…' : 'Envoyer ma demande';
+    };
+
+    again.addEventListener('click', () => {
+      success.hidden = true;
+      form.hidden = false;
+      ts.value = String(Date.now());
+      (form.elements.namedItem('nom') as HTMLElement)?.focus();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.hidden = true;
+      const results = required.map(validate);
+      if (results.includes(false)) {
+        const first = required.find((_, i) => !results[i])!;
+        (form.elements.namedItem(first) as HTMLElement)?.focus();
+        return;
+      }
+      setBusy(true);
+      try {
+        const res = await fetch(form.dataset.endpoint || form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.error || 'Envoi impossible');
+        form.reset();
+        form.hidden = true;
+        success.hidden = false;
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch {
+        errorBox.hidden = false;
+        errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } finally {
+        setBusy(false);
+      }
+    });
+  }
+</script>

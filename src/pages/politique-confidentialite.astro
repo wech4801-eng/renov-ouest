@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LegalPage from '@/components/LegalPage.astro';
+import { confidentialite } from '@/data/legal';
+---
+<BaseLayout
+  title="Politique de confidentialité | Renov'Ouest"
+  description="Politique de confidentialité du site Renov'Ouest : données collectées via le formulaire de devis, finalité, durée de conservation et droits des utilisateurs."
+  path="/politique-confidentialite"
+  noindex
+>
+  <LegalPage
+    title={confidentialite.title}
+    intro={confidentialite.intro}
+    blocks={confidentialite.blocks}
+  />
+</BaseLayout>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { services } from '@/data/services';
+import { company } from '@/data/company';
+import { serviceNode } from '@/data/schema';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug);
+const schemaService = serviceNode(service);
+const teaser = [
+  'photo chantier 01\n1200 × 900 · à fournir',
+  'photo chantier 02\n1200 × 900 · à fournir',
+  'photo chantier 03\n1200 × 900 · à fournir',
+];
+const h2 = 'font-family: var(--font-heading); font-size: clamp(22px, 2.4vw, 32px); margin: 0 0 24px; text-transform: uppercase; letter-spacing: -0.02em';
+---
+<BaseLayout
+  title={service.seo.title}
+  description={service.seo.description}
+  path={`/prestations/${service.slug}`}
+  breadcrumb={[
+    { name: 'Accueil', path: '/' },
+    { name: 'Prestations', path: '/prestations' },
+    { name: service.name },
+  ]}
+  extraSchema={[schemaService]}
+>
+
+  <section class="on-dark" style="background: #1e2b3a; color: #f7f4ef">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(22px, 3vw, 34px) var(--gutter) clamp(36px, 5vw, 72px)">
+      <nav aria-label="Fil d’Ariane" style="margin: 0 0 28px">
+        <ol style="list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--color-accent-300)">
+          <li><a href="/" style="text-decoration: none; color: var(--color-accent-300)">Accueil</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/prestations" style="text-decoration: none; color: var(--color-accent-300)">Prestations</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" style="color: #f7f4ef">{service.name}</li>
+        </ol>
+      </nav>
+
+      <div style="display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); align-items: start">
+        <div>
+          <p style="font-family: var(--font-mono); font-size: 34px; line-height: 1; color: var(--color-accent-400); margin: 0 0 16px">{service.num}</p>
+          <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(38px, 6vw, 78px); line-height: 0.94; margin: 0 0 14px; text-transform: uppercase; letter-spacing: -0.025em">{service.name}</h1>
+          <p style="font-family: var(--font-heading); font-size: clamp(18px, 1.9vw, 24px); margin: 0 0 24px; color: var(--color-accent-300)">{service.sub}</p>
+          <p style="font-size: clamp(16px, 1.3vw, 17.5px); line-height: 1.7; max-width: 58ch; margin: 0 0 16px; color: var(--color-accent-200)">{service.body[0]}</p>
+          {service.body[1] && (
+            <p style="font-size: 15.5px; line-height: 1.7; max-width: 58ch; margin: 0 0 28px; color: var(--color-accent-200)">{service.body[1]}</p>
+          )}
+          <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+               style="white-space: nowrap; min-height: 54px; padding: 15px 24px; font-size: 16px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              Demander un devis
+            </a>
+            <a class="btn" href={company.phone.href} data-analytics="click_phone"
+               style="white-space: nowrap; min-height: 54px; padding: 15px 22px; font-size: 16px; color: #f7f4ef; border-color: var(--color-accent-700)">
+              Appeler le {company.phone.display}
+            </a>
+          </div>
+        </div>
+
+        <figure class="blueprint" style="position: relative; aspect-ratio: 4 / 3; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #26374a 0 9px, #1e2b3a 9px 18px); border-color: var(--color-accent-700)">
+          <i class="corner tl" style="color: var(--color-accent-400)"></i><i class="corner tr" style="color: var(--color-accent-400)"></i><i class="corner bl" style="color: var(--color-accent-400)"></i><i class="corner br" style="color: var(--color-accent-400)"></i>
+          <figcaption style="font-family: var(--font-mono); font-size: 12px; color: var(--color-accent-300); text-align: center; padding: 16px; white-space: pre-line">{service.image.brief}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid var(--color-divider)">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(36px, 5vw, 76px) var(--gutter)">
+      <h2 style="font-family: var(--font-heading); font-size: clamp(26px, 2.8vw, 38px); margin: 0 0 28px; text-transform: uppercase; letter-spacing: -0.02em">Notre intervention</h2>
+      <div style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr))">
+        {service.points.map((pt) => (
+          <div class="blueprint reveal" style="position: relative; padding: 22px; font-size: 15px; line-height: 1.55">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            {pt}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid var(--color-divider)">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(32px, 4vw, 64px) var(--gutter)">
+      <h2 style={h2}>Photos du chantier</h2>
+      <div style="display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr))">
+        {teaser.map((t) => (
+          <figure class="blueprint ph" style="position: relative; aspect-ratio: 4 / 3">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <figcaption style="white-space: pre-line">{t}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(32px, 4vw, 64px) var(--gutter)">
+      <h2 style={h2}>Autres prestations</h2>
+      <div style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr))">
+        {others.map((o) => (
+          <a class="blueprint card-link" href={`/prestations/${o.slug}`}
+             style="position: relative; padding: 22px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 6px">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <span style="font-family: var(--font-heading); font-size: 21px">{o.name}</span>
+            <span style="font-size: 13.5px; color: var(--color-neutral-700)">{o.sub}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .card-link { transition: background-color 150ms cubic-bezier(0.32, 0.72, 0, 1); }
+  .card-link:hover { background: var(--color-accent-100); }
+</style>

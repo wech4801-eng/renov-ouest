@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import { company, nav } from '@/data/company';
+import logo from '@/assets/logo-renov-ouest.jpg';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+
+const linkStyle = 'font-family: var(--font-heading); font-size: 15px; text-decoration: none; color: inherit';
+---
+<header
+  class="on-dark no-print"
+  style="position: sticky; top: 0; z-index: 40; background: #1e2b3a; color: #f7f4ef; border-bottom: 1px solid var(--color-accent-700)"
+>
+  <div style="max-width: var(--shell); margin: 0 auto; padding: 10px var(--gutter); display: flex; align-items: center; gap: 22px">
+    <a
+      href="/"
+      style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; margin-right: auto"
+    >
+      <Image
+        src={logo} alt="" aria-hidden="true" width={46} height={46} densities={[1, 2]}
+        style="width: 46px; height: 46px; object-fit: cover; object-position: center 30%; border: 1px solid var(--color-accent-600)"
+      />
+      <span style="display: flex; flex-direction: column; line-height: 1.08">
+        <span style="font-family: var(--font-heading); font-weight: 700; font-size: 22px; letter-spacing: 0.02em">RENOV'OUEST</span>
+        <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-300); white-space: nowrap">
+          Rénovation &amp; finition · Angers
+        </span>
+      </span>
+      <span class="sr-only"> — accueil</span>
+    </a>
+
+    <nav class="rw-desktop-nav" aria-label="Navigation principale" style="display: flex; align-items: center; gap: 22px">
+      {nav.map((item) => (
+        <a href={item.href} style={linkStyle} data-navlink
+           aria-current={current(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+      <a href={company.phone.href} data-analytics="click_phone"
+         style="text-decoration: none; color: inherit; border-left: 1px solid var(--color-accent-700); padding-left: 20px">
+        <span style="font-family: var(--font-heading); font-size: 17px; white-space: nowrap">{company.phone.display}</span>
+      </a>
+      <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+         style="padding: 11px 17px; font-size: 14px">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        Demander un devis
+      </a>
+    </nav>
+
+    <button
+      class="rw-burger btn" type="button" id="nav-toggle"
+      aria-expanded="false" aria-controls="nav-drawer" aria-label="Ouvrir le menu"
+      style="display: none; width: 44px; height: 44px; padding: 0; flex-direction: column; gap: 4px; border-color: var(--color-accent-700); background: transparent"
+    >
+      <span style="display: block; width: 18px; height: 1.5px; background: #f7f4ef"></span>
+      <span style="display: block; width: 18px; height: 1.5px; background: #f7f4ef"></span>
+      <span style="display: block; width: 18px; height: 1.5px; background: #f7f4ef"></span>
+    </button>
+  </div>
+
+  <nav id="nav-drawer" hidden aria-label="Navigation mobile"
+       style="border-top: 1px solid var(--color-accent-700); padding: 8px var(--gutter) 20px; display: flex; flex-direction: column; background: #1e2b3a">
+    {nav.map((item) => (
+      <a href={item.href} aria-current={current(item.href) ? 'page' : undefined}
+         style="padding: 14px 0; min-height: 48px; font-family: var(--font-heading); font-size: 19px; text-decoration: none; color: inherit; border-bottom: 1px solid var(--color-accent-800); display: flex; align-items: center">
+        {item.label}
+      </a>
+    ))}
+    <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+       style="margin-top: 18px; min-height: 52px; font-size: 16px">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      Demander un devis
+    </a>
+    <a class="btn btn-secondary" href={company.phone.href} data-analytics="click_phone"
+       style="margin-top: 10px; min-height: 52px; font-size: 16px">{company.phone.display}</a>
+  </nav>
+</header>
+
+<style>
+  [data-navlink]:hover,
+  [data-navlink][aria-current='page'] { color: var(--color-accent-300); }
+</style>
+
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('nav-drawer');
+  if (btn && drawer) {
+    const setOpen = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      drawer.hidden = !open;
+    };
+    btn.addEventListener('click', () => setOpen(Boolean(drawer.hidden)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !drawer.hidden) { setOpen(false); btn.focus(); }
+    });
+    matchMedia('(min-width: 1061px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+  }
+</script>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+const btn = 'white-space: nowrap; min-height: 50px; padding: 13px 22px; font-size: 15.5px';
+---
+<BaseLayout
+  title="Page introuvable | Renov'Ouest"
+  description="Cette page n’existe pas ou a été déplacée. Retrouvez les prestations et les coordonnées de Renov'Ouest."
+  path="/404"
+  noindex
+>
+  <section>
+    <div style="max-width: min(980px, 100%); margin: 0 auto; padding: clamp(56px, 8vw, 120px) var(--gutter)">
+      <p style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; color: var(--color-accent-700); margin: 0 0 18px">ERREUR 404</p>
+      <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(38px, 6vw, 76px); margin: 0 0 18px; text-transform: uppercase; letter-spacing: -0.025em">Page introuvable</h1>
+      <p style="font-size: 16.5px; line-height: 1.65; max-width: 50ch; margin: 0 0 30px">
+        La page que vous cherchez n’existe pas ou a été déplacée.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a class="btn btn-primary blueprint" href="/" style={btn}>
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Retour à l’accueil
+        </a>
+        <a class="btn btn-secondary" href="/prestations" style={btn}>Voir les prestations</a>
+        <a class="btn btn-secondary" href="/contact" data-analytics="click_quote" style={btn}>Demander un devis</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

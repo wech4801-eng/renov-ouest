@@ -1,0 +1,23 @@
+---
+/** Bandeau d'en-tete de page : aplat encre, kicker monospace, titre display. */
+interface Props {
+  kicker: string;
+  title: string;
+  intro?: string;
+  /** Largeur maximale du titre, en ch. */
+  titleWidth?: number;
+}
+const { kicker, title, intro, titleWidth = 22 } = Astro.props;
+---
+<section class="on-dark" style="background: #1e2b3a; color: #f7f4ef">
+  <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(36px, 5vw, 76px) var(--gutter)">
+    <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--color-accent-300); margin: 0 0 18px">{kicker}</p>
+    <h1 style={`font-family: var(--font-heading); font-weight: 700; font-size: clamp(38px, 6.5vw, 84px); line-height: 0.94; margin: 0 0 20px; text-transform: uppercase; letter-spacing: -0.025em; max-width: ${titleWidth}ch`}>
+      {title}
+    </h1>
+    {intro && (
+      <p style="font-size: clamp(16px, 1.3vw, 18px); line-height: 1.65; max-width: 58ch; margin: 0; color: var(--color-accent-200)">{intro}</p>
+    )}
+    <slot />
+  </div>
+</section>

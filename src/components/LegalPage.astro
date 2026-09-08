@@ -1,0 +1,29 @@
+---
+import type { LegalBlock } from '@/data/legal';
+
+interface Props { title: string; intro: string; blocks: LegalBlock[] }
+const { title, intro, blocks } = Astro.props;
+const updated = new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<section>
+  <div style="max-width: min(980px, 100%); margin: 0 auto; padding: clamp(36px, 5vw, 72px) var(--gutter)">
+    <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--color-accent-700); margin: 0 0 18px">INFORMATIONS LÉGALES</p>
+    <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(32px, 4.4vw, 56px); margin: 0 0 16px; text-transform: uppercase; letter-spacing: -0.025em">{title}</h1>
+    <p style="font-size: 16px; line-height: 1.7; margin: 0 0 8px; max-width: 60ch; color: var(--color-neutral-700)">{intro}</p>
+    <p style="font-family: var(--font-mono); font-size: 11px; color: var(--color-neutral-600); margin: 0 0 30px">
+      DERNIÈRE MISE À JOUR : {updated}
+    </p>
+
+    {blocks.map((b) => (
+      <div style="border-top: 1px solid var(--color-divider); padding: 24px 0">
+        <h2 style="font-family: var(--font-heading); font-size: 23px; margin: 0 0 10px">{b.h}</h2>
+        <p style="font-size: 15.5px; line-height: 1.7; margin: 0; white-space: pre-line; color: var(--color-neutral-800)">{b.p}</p>
+        {b.todo && (
+          <p style="margin: 12px 0 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--color-accent-800); border: 1px solid var(--color-accent-600); background: var(--color-accent-100); padding: 10px 12px">
+            À FOURNIR PAR L’ENTREPRISE AVANT LA MISE EN LIGNE DÉFINITIVE
+          </p>
+        )}
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import { company, nav } from '@/data/company';
+import logo from '@/assets/logo-renov-ouest.jpg';
+
+const { address } = company;
+const year = new Date().getFullYear();
+const colTitle = 'font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; color: var(--color-accent-400); margin: 0 0 16px';
+const linkStyle = 'text-decoration: none; color: var(--color-accent-200)';
+---
+<footer class="on-dark" style="background: #17212c; color: #f7f4ef">
+  <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(36px, 5vw, 68px) var(--gutter); display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr))">
+
+    <div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px">
+        <Image src={logo} alt="" aria-hidden="true" width={52} height={52} densities={[1, 2]}
+               style="width: 52px; height: 52px; object-fit: cover; object-position: center 30%; border: 1px solid var(--color-accent-600)" />
+        <span style="display: flex; flex-direction: column; line-height: 1.1">
+          <span style="font-family: var(--font-heading); font-weight: 700; font-size: 23px">RENOV'OUEST</span>
+          <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; color: var(--color-accent-300)">RÉNOVATION &amp; FINITION</span>
+        </span>
+      </div>
+      <p style="font-size: 14.5px; line-height: 1.6; margin: 0 0 16px; color: var(--color-accent-200); max-width: 34ch">
+        Entreprise de rénovation et de finition — enduit monocouche, façade, peinture intérieure, pose de sols.
+      </p>
+      <address style="font-style: normal; font-size: 14.5px; line-height: 1.7; color: var(--color-accent-200)">
+        {address.street}<br />
+        {address.postalCode} {address.city}<br />
+        {address.region}, {address.country}
+      </address>
+    </div>
+
+    <div>
+      <p style={colTitle}>CONTACT</p>
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 15px">
+        <a href={company.phone.href} data-analytics="click_phone"
+           style="text-decoration: none; color: #f7f4ef; font-family: var(--font-heading); font-size: 19px">{company.phone.display}</a>
+        <a href={company.email.href} data-analytics="click_email"
+           style="text-decoration: none; color: var(--color-accent-300); overflow-wrap: anywhere">{company.email.display}</a>
+      </div>
+    </div>
+
+    <nav aria-labelledby="footer-nav">
+      <p id="footer-nav" style={colTitle}>NAVIGATION</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+        {nav.map((i) => <a href={i.href} style={linkStyle}>{i.label}</a>)}
+      </div>
+    </nav>
+
+    <nav aria-labelledby="footer-legal">
+      <p id="footer-legal" style={colTitle}>INFORMATIONS LÉGALES</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+        <a href="/mentions-legales" style={linkStyle}>Mentions légales</a>
+        <a href="/politique-confidentialite" style={linkStyle}>Politique de confidentialité</a>
+      </div>
+    </nav>
+  </div>
+
+  <div style="border-top: 1px solid var(--color-accent-800)">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: 18px var(--gutter); font-size: 12.5px; color: var(--color-accent-300); display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between">
+      <span>© {year} {company.name} — {address.city}, {address.region}</span>
+      <span style="font-family: var(--font-mono)">ENDUIT MONOCOUCHE · FAÇADE · PEINTURE · SOLS</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Barre d'action mobile, identique a la maquette (rupture a 1060px). -->
+<div class="rw-mobilebar no-print"
+     style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-accent-800); border-top: 1px solid var(--color-accent-700)">
+  <a class="btn" href={company.phone.href} data-analytics="click_phone"
+     style="white-space: nowrap; min-height: 56px; border: 0; border-radius: 0; background: #1e2b3a; color: #f7f4ef; font-size: 16px">Appeler</a>
+  <a class="btn btn-primary" href="/contact" data-analytics="click_quote"
+     style="white-space: nowrap; min-height: 56px; border: 0; border-radius: 0; font-size: 16px">Demander un devis</a>
+</div>
+<div class="rw-mobilebar" style="height: 56px" aria-hidden="true"></div>

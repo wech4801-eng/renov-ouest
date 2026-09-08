@@ -1,0 +1,231 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { company } from '@/data/company';
+import { services } from '@/data/services';
+import { allServiceNodes } from '@/data/schema';
+import hero from '@/assets/hero-chantier.jpg';
+
+const care = [
+  { n: '01', t: 'La préparation des supports' },
+  { n: '02', t: 'La précision du travail' },
+  { n: '03', t: 'La qualité des finitions' },
+  { n: '04', t: 'Le respect du chantier' },
+  { n: '05', t: 'La satisfaction de nos clients' },
+];
+
+const reasons = [
+  { title: 'Un savoir-faire professionnel', text: 'Des compétences adaptées aux travaux de rénovation et de finition, en intérieur comme en extérieur.' },
+  { title: 'Un travail précis', text: 'Nous apportons une attention particulière aux détails et à la régularité des finitions.' },
+  { title: 'Un chantier soigné', text: 'Nous veillons à travailler dans le respect de votre habitation et de votre environnement.' },
+  { title: 'Un accompagnement personnalisé', text: 'Nous échangeons avec vous tout au long du projet, de la première visite à la réception des travaux.' },
+];
+
+const teaser = [
+  'photo chantier 01\n1200 × 900 · à fournir',
+  'photo chantier 02\n1200 × 900 · à fournir',
+  'photo chantier 03\n1200 × 900 · à fournir',
+];
+
+const shell = 'max-width: var(--shell); margin: 0 auto; padding: clamp(44px, 6vw, 92px) var(--gutter)';
+const h2Style = 'font-family: var(--font-heading); font-size: clamp(30px, 4vw, 52px); margin: 0; text-transform: uppercase; letter-spacing: -0.02em';
+const kicker = 'font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--color-accent-700); margin: 0 0 16px';
+---
+<BaseLayout
+  title="Façadier à Angers — Enduit, façade, peinture | Renov'Ouest"
+  description="Entreprise de rénovation et de finition à Saint-Jean-de-la-Croix, près d'Angers : enduit monocouche, façade, peinture intérieure, pose de sols."
+  path="/"
+  extraSchema={allServiceNodes()}
+>
+  <!-- ══════════ HERO ══════════ -->
+  <section class="on-dark" style="position: relative; background: #1e2b3a; color: #f7f4ef; overflow: hidden">
+    <Image
+      src={hero}
+      alt="Chantier de rénovation Renov'Ouest : finition intérieure et couverture extérieure"
+      widths={[768, 1280, 1920, 2560]} sizes="100vw"
+      loading="eager" fetchpriority="high" format="avif" quality={70}
+      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% center; filter: brightness(1.12) saturate(1.05)"
+    />
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: #1e2b3a; mix-blend-mode: multiply; opacity: 0.28"></div>
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(100deg, rgba(17,25,34,0.82) 0%, rgba(17,25,34,0.62) 40%, rgba(17,25,34,0.22) 74%, rgba(17,25,34,0.08) 100%)"></div>
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,25,34,0.72) 0%, rgba(17,25,34,0) 42%)"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--color-accent)"></div>
+
+    <div style="position: relative; max-width: var(--shell); margin: 0 auto; padding: clamp(20px, 2.4vw, 32px) var(--gutter) clamp(48px, 7vw, 112px)">
+      <p style="font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.18em; color: var(--color-accent-300); margin: 0 0 24px">
+        ENDUIT MONOCOUCHE / FAÇADE / PEINTURE INTÉRIEURE / POSE DE SOLS
+      </p>
+      <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(50px, 10.5vw, 140px); line-height: 0.88; letter-spacing: -0.03em; margin: 0 0 26px; text-transform: uppercase; text-shadow: 0 2px 24px rgba(17,25,34,0.55)">
+        Finitions<br />intérieures<br />&amp; extérieures
+      </h1>
+      <div style="display: grid; gap: clamp(20px, 3vw, 48px); grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr)); align-items: end; border-top: 1px solid var(--color-accent-700); padding-top: 26px">
+        <div>
+          <p style="font-family: var(--font-heading); font-size: clamp(18px, 2vw, 23px); line-height: 1.25; margin: 0 0 14px; color: var(--color-accent-300)">
+            Entreprise de rénovation et de finition à Saint-Jean-de-la-Croix, près d’Angers
+          </p>
+          <p style="font-size: clamp(16px, 1.4vw, 18px); line-height: 1.6; margin: 0; max-width: 48ch; color: var(--color-accent-200)">
+            Vous avez un projet de construction, de rénovation ou d’embellissement ? Renov’Ouest vous
+            accompagne dans la réalisation de vos travaux, avec un savoir-faire dédié aux finitions
+            intérieures et extérieures.
+          </p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+             style="white-space: nowrap; min-height: 56px; padding: 16px 26px; font-size: 17px">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            Demander un devis
+          </a>
+          <a class="btn" href={company.phone.href} data-analytics="click_phone"
+             style="white-space: nowrap; min-height: 56px; padding: 16px 24px; font-size: 17px; color: #f7f4ef; border-color: var(--color-accent-700)">
+            Appeler le {company.phone.display}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PRESTATIONS ══════════ -->
+  <section>
+    <div style={shell}>
+      <div style="display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin: 0 0 34px">
+        <h2 style={h2Style}>Prestations</h2>
+        <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--color-accent-700)">04 SAVOIR-FAIRE</span>
+      </div>
+      <div style="display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); border-top: 1px solid var(--color-divider)">
+        {services.map((s) => (
+          <article class="reveal" style="border-bottom: 1px solid var(--color-divider); border-right: 1px solid var(--color-divider); display: flex; flex-direction: column">
+            <div class="ph" style="aspect-ratio: 4 / 3; border-bottom: 1px solid var(--color-divider)">{s.image.brief}</div>
+            <div style="padding: 22px 24px clamp(16px, 3.2vw, 56px); display: flex; flex-direction: column; gap: 10px; flex: 1">
+              <span style="font-family: var(--font-mono); font-size: 34px; line-height: 1; color: var(--color-accent-600)">{s.num}</span>
+              <h3 style="font-family: var(--font-heading); font-size: 26px; margin: 4px 0 0; line-height: 1.05">{s.name}</h3>
+              <p style="font-size: 14.5px; line-height: 1.6; margin: 0; color: var(--color-neutral-700); flex: 1">{s.short}</p>
+              <a class="link-more" href={`/prestations/${s.slug}`}>En savoir plus<span class="sr-only"> sur {s.name} à Angers</span> →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SAVOIR-FAIRE ══════════ -->
+  <section style="border-top: 1px solid var(--color-divider)">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(44px, 6vw, 92px) var(--gutter); display: grid; gap: clamp(28px, 4vw, 64px); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); align-items: start">
+      <div>
+        <p style={kicker}>SAVOIR-FAIRE</p>
+        <h2 style="font-family: var(--font-heading); font-size: clamp(30px, 4vw, 52px); margin: 0 0 20px; text-transform: uppercase; letter-spacing: -0.02em; max-width: 20ch">
+          Notre savoir-faire au service de vos projets
+        </h2>
+        <p style="font-size: 17px; line-height: 1.65; max-width: 52ch; margin: 0 0 14px">
+          Chez {company.name}, nous considérons que la qualité d’un chantier repose autant sur la
+          mise en œuvre que sur la finition.
+        </p>
+        <p style="font-size: 15.5px; line-height: 1.65; margin: 0 0 26px; color: var(--color-neutral-700)">
+          Chaque projet est réalisé avec sérieux afin de vous garantir un résultat à la hauteur de
+          vos attentes.
+        </p>
+        <figure class="blueprint ph" style="position: relative; aspect-ratio: 3 / 2">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <figcaption style="font-size: 12px">photo chantier — mise en œuvre<br />1400 × 933 · à fournir</figcaption>
+        </figure>
+      </div>
+      <ul style="list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-divider)">
+        {care.map((c) => (
+          <li class="reveal" style="display: flex; gap: 18px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--color-divider)">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--color-accent-700)">{c.n}</span>
+            <span style="font-family: var(--font-heading); font-size: clamp(19px, 2vw, 25px)">{c.t}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════ RÉALISATIONS ══════════ -->
+  <section style="border-top: 1px solid var(--color-divider)">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(44px, 6vw, 88px) var(--gutter)">
+      <div style="display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin: 0 0 30px">
+        <h2 style={h2Style}>Réalisations</h2>
+        <a class="link-more" href="/realisations" style="margin-left: auto">Voir toutes les réalisations →</a>
+      </div>
+      <div style="display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr))">
+        {teaser.map((t) => (
+          <figure class="blueprint ph reveal" style="position: relative; aspect-ratio: 4 / 3">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <figcaption style="white-space: pre-line">{t}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ POURQUOI ══════════ -->
+  <section style="border-top: 1px solid var(--color-divider)">
+    <div style={shell}>
+      <h2 style="font-family: var(--font-heading); font-size: clamp(30px, 4vw, 52px); margin: 0 0 34px; text-transform: uppercase; letter-spacing: -0.02em">
+        Pourquoi choisir Renov’Ouest ?
+      </h2>
+      <div style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr))">
+        {reasons.map((r) => (
+          <article class="card blueprint reveal" style="padding: 24px; gap: 10px">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <h3 style="font-family: var(--font-heading); font-size: 22px; margin: 0; line-height: 1.12">{r.title}</h3>
+            <p style="font-size: 14.5px; line-height: 1.6; margin: 0; color: var(--color-neutral-700)">{r.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ ZONE D’INTERVENTION ══════════ -->
+  <section style="border-top: 1px solid var(--color-divider)">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(44px, 6vw, 88px) var(--gutter); display: grid; gap: clamp(24px, 4vw, 56px); grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); align-items: start">
+      <div>
+        <p style={kicker}>ZONE D’INTERVENTION</p>
+        <h2 style="font-family: var(--font-heading); font-size: clamp(26px, 3.2vw, 42px); margin: 0 0 18px; text-transform: uppercase; letter-spacing: -0.02em; max-width: 24ch">
+          Saint-Jean-de-la-Croix, Angers et le Maine-et-Loire
+        </h2>
+        <p style="font-size: 15.5px; line-height: 1.65; max-width: 54ch; margin: 0 0 24px; color: var(--color-neutral-700)">
+          Basés à Saint-Jean-de-la-Croix, près d’Angers, nous intervenons auprès des particuliers et
+          des professionnels pour leurs projets de rénovation, de façade, d’enduit, de peinture
+          intérieure et de pose de sols.
+        </p>
+        <a class="btn btn-secondary" href="/zone-intervention"
+           style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">
+          Voir la zone d’intervention
+        </a>
+      </div>
+      <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr))">
+        {company.serviceArea.map((z) => (
+          <li class="blueprint" style="position: relative; padding: 18px; font-family: var(--font-heading); font-size: 19px">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            {z}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section class="on-dark" style="background: #1e2b3a; color: #f7f4ef">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(44px, 6vw, 88px) var(--gutter); display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: space-between">
+      <div>
+        <h2 style="font-family: var(--font-heading); font-size: clamp(32px, 4.4vw, 56px); margin: 0 0 10px; text-transform: uppercase; letter-spacing: -0.02em">
+          Vous avez un projet ?
+        </h2>
+        <p style="font-size: 17px; line-height: 1.6; margin: 0; max-width: 44ch; color: var(--color-accent-200)">
+          Contactez-nous pour échanger sur votre projet et demander votre devis.
+        </p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+           style="white-space: nowrap; min-height: 56px; padding: 16px 26px; font-size: 17px">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Demander un devis
+        </a>
+        <a class="btn" href={company.phone.href} data-analytics="click_phone"
+           style="white-space: nowrap; min-height: 56px; padding: 16px 24px; font-size: 17px; color: #f7f4ef; border-color: var(--color-accent-700)">
+          {company.phone.display}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

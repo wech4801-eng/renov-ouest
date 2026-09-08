@@ -1,0 +1,152 @@
+---
+import { company, siteUrl } from '@/data/company';
+
+export type Crumb = { name: string; path?: string };
+
+interface Props {
+  title: string;
+  description: string;
+  /** Chemin sans slash final, ex. '/prestations/facade' */
+  path: string;
+  image?: string;
+  noindex?: boolean;
+  /**
+   * Type Schema.org de la page. Doit decrire ce que la page EST reellement.
+   * Voir https://schema.org/WebPage et ses sous-types.
+   */
+  pageType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage';
+  /** Fil d'Ariane visible sur la page. Le dernier element n'a pas besoin d'URL. */
+  breadcrumb?: Crumb[];
+  /** Noeuds Schema.org supplementaires propres a la page (ex. Service). */
+  extraSchema?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  path,
+  image = '/og.jpg',
+  noindex = false,
+  pageType = 'WebPage',
+  breadcrumb,
+  extraSchema = [],
+} = Astro.props;
+
+const abs = (p: string) => new URL(p, siteUrl).href;
+const canonical = abs(path === '/' ? '/' : path);
+const ogImage = abs(image);
+const fullTitle = title.includes(company.name) ? title : `${title} | ${company.name}`;
+
+const { address, geo, phone, email } = company;
+
+const BUSINESS = `${siteUrl}/#business`;
+const WEBSITE = `${siteUrl}/#website`;
+const pageId = `${canonical}#webpage`;
+
+/**
+ * Un seul graphe par page, avec des @id stables : l'entreprise, le site et la
+ * page sont des noeuds distincts et relies, plutot qu'un bloc identique repete.
+ *
+ * Regle appliquee a toutes les proprietes : chacune correspond a une information
+ * reellement presente et verifiee. Volontairement ABSENTS car inconnus a ce jour :
+ * aggregateRating, review, priceRange, openingHoursSpecification, sameAs,
+ * foundingDate, numberOfEmployees, vatID. Rien n'est invente pour obtenir un
+ * resultat enrichi.
+ */
+const business = {
+  '@type': 'HomeAndConstructionBusiness',
+  '@id': BUSINESS,
+  name: company.name,
+  alternateName: company.displayName,
+  slogan: company.tagline,
+  description: company.description,
+  url: siteUrl,
+  telephone: phone.e164,
+  email: email.display,
+  image: abs('/og.jpg'),
+  logo: abs('/apple-touch-icon.png'),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: address.street,
+    postalCode: address.postalCode,
+    addressLocality: address.city,
+    addressRegion: address.region,
+    addressCountry: address.countryCode,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: geo.latitude, longitude: geo.longitude },
+  areaServed: company.serviceArea.map((name) => ({ '@type': 'Place', name })),
+  knowsAbout: [
+    'Enduit monocouche',
+    'Travaux de façade',
+    'Peinture intérieure',
+    'Pose de sols',
+    'Préparation des supports',
+  ],
+  knowsLanguage: 'fr-FR',
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': WEBSITE,
+  url: siteUrl,
+  name: company.name,
+  description: company.description,
+  inLanguage: 'fr-FR',
+  publisher: { '@id': BUSINESS },
+};
+
+const webpage: Record<string, unknown> = {
+  '@type': pageType,
+  '@id': pageId,
+  url: canonical,
+  name: fullTitle,
+  description,
+  inLanguage: 'fr-FR',
+  isPartOf: { '@id': WEBSITE },
+  about: { '@id': BUSINESS },
+  primaryImageOfPage: { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 },
+};
+
+const graph: Record<string, unknown>[] = [business, website, webpage];
+
+if (breadcrumb?.length) {
+  webpage.breadcrumb = { '@id': `${canonical}#breadcrumb` };
+  graph.push({
+    '@type': 'BreadcrumbList',
+    '@id': `${canonical}#breadcrumb`,
+    itemListElement: breadcrumb.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      // Google : `item` est facultatif pour le dernier maillon.
+      ...(c.path ? { item: abs(c.path) } : {}),
+    })),
+  });
+}
+
+graph.push(...extraSchema);
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content={company.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${company.displayName} — ${company.description}`} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

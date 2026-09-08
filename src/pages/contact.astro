@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import { company } from '@/data/company';
+import logo from '@/assets/logo-renov-ouest.jpg';
+
+const { address } = company;
+---
+<BaseLayout
+  title="Contact et demande de devis | Renov'Ouest"
+  description="Contactez Renov'Ouest à Saint-Jean-de-la-Croix, près d'Angers : 06 63 72 98 00 ou demande de devis en ligne pour vos travaux de finition."
+  path="/contact"
+  pageType="ContactPage"
+  breadcrumb={[{ name: "Accueil", path: "/" }, { name: "Contact" }]}
+>
+  <PageHeader
+    kicker="CONTACT"
+    title="Demande de devis"
+    intro="Décrivez-nous votre projet : nous revenons vers vous pour en échanger et établir votre devis. Vous pouvez aussi nous appeler directement."
+    titleWidth={30}
+  />
+
+  <section>
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(32px, 4vw, 68px) var(--gutter); display: grid; gap: clamp(28px, 4vw, 48px); grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); align-items: start">
+
+      <ContactForm />
+
+      <div style="display: flex; flex-direction: column; gap: 22px">
+        <div class="blueprint on-dark" style="position: relative; padding: 26px; background: #1e2b3a; color: #f7f4ef; border-color: var(--color-accent-700)">
+          <i class="corner tl" style="color: var(--color-accent-400)"></i><i class="corner tr" style="color: var(--color-accent-400)"></i><i class="corner bl" style="color: var(--color-accent-400)"></i><i class="corner br" style="color: var(--color-accent-400)"></i>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px">
+            <Image src={logo} alt="" aria-hidden="true" width={54} height={54} densities={[1, 2]}
+                   style="width: 54px; height: 54px; object-fit: cover; object-position: center 30%; border: 1px solid var(--color-accent-600)" />
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 24px">RENOV'OUEST</span>
+          </div>
+          <address style="font-style: normal; font-size: 15.5px; line-height: 1.75; color: var(--color-accent-200)">
+            {address.street}<br />
+            {address.postalCode} {address.city}<br />
+            {address.region}, {address.country}
+          </address>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px">
+            <a class="btn btn-primary blueprint" href={company.phone.href} data-analytics="click_phone"
+               style="white-space: nowrap; min-height: 54px; padding: 15px 20px; font-size: 17px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              {company.phone.display}
+            </a>
+            <a class="btn" href={company.email.href} data-analytics="click_email"
+               style="min-height: 50px; padding: 13px 20px; font-size: 15px; color: #f7f4ef; border-color: var(--color-accent-700); overflow-wrap: anywhere">
+              {company.email.display}
+            </a>
+          </div>
+        </div>
+
+        <div class="blueprint" style="position: relative; padding: 24px">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <h2 style="font-family: var(--font-heading); font-size: 20px; margin: 0 0 14px; text-transform: uppercase; letter-spacing: -0.01em">Zone d’intervention</h2>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px">
+            {company.serviceArea.map((z) => (
+              <li style="display: flex; gap: 10px">
+                <span aria-hidden="true" style="font-family: var(--font-mono); font-size: 11px; color: var(--color-accent-700)">+</span>
+                <span>{z}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { company } from '@/data/company';
+
+const care = [
+  { n: '01', t: 'La préparation des supports' },
+  { n: '02', t: 'La précision du travail' },
+  { n: '03', t: 'La qualité des finitions' },
+  { n: '04', t: 'Le respect du chantier' },
+  { n: '05', t: 'La satisfaction de nos clients' },
+];
+const reasons = [
+  { title: 'Un savoir-faire professionnel', text: 'Des compétences adaptées aux travaux de rénovation et de finition, en intérieur comme en extérieur.' },
+  { title: 'Un travail précis', text: 'Nous apportons une attention particulière aux détails et à la régularité des finitions.' },
+  { title: 'Un chantier soigné', text: 'Nous veillons à travailler dans le respect de votre habitation et de votre environnement.' },
+  { title: 'Un accompagnement personnalisé', text: 'Nous échangeons avec vous tout au long du projet, de la première visite à la réception des travaux.' },
+];
+---
+<BaseLayout
+  title="Notre savoir-faire | Renov'Ouest, façadier près d'Angers"
+  description="Notre approche du chantier chez Renov'Ouest : préparation des supports, précision, qualité des finitions et respect de votre habitation."
+  path="/a-propos"
+  pageType="AboutPage"
+  breadcrumb={[{ name: "Accueil", path: "/" }, { name: "Notre savoir-faire" }]}
+>
+  <section class="on-dark" style="background: #1e2b3a; color: #f7f4ef">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(36px, 5vw, 76px) var(--gutter); display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); align-items: center">
+      <div>
+        <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--color-accent-300); margin: 0 0 18px">À PROPOS</p>
+        <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(34px, 5.4vw, 70px); line-height: 0.95; margin: 0 0 20px; text-transform: uppercase; letter-spacing: -0.025em; max-width: 20ch">
+          Notre savoir-faire au service de vos projets
+        </h1>
+        <p style="font-size: clamp(16px, 1.3vw, 18px); line-height: 1.7; max-width: 56ch; margin: 0 0 14px; color: var(--color-accent-200)">
+          Chez {company.name}, nous considérons que la qualité d’un chantier repose autant sur la
+          mise en œuvre que sur la finition.
+        </p>
+        <p style="font-size: 15.5px; line-height: 1.7; max-width: 56ch; margin: 0 0 14px; color: var(--color-accent-200)">
+          Nous intervenons auprès des particuliers et des professionnels, en construction neuve
+          comme en rénovation, pour des projets de rénovation, d’embellissement et de travaux de
+          finition intérieure et extérieure.
+        </p>
+        <p style="font-size: 15.5px; line-height: 1.7; max-width: 56ch; margin: 0; color: var(--color-accent-200)">
+          Chaque projet est réalisé avec sérieux afin de vous garantir un résultat à la hauteur de
+          vos attentes.
+        </p>
+      </div>
+      <figure class="blueprint" style="position: relative; aspect-ratio: 3 / 4; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #26374a 0 9px, #1e2b3a 9px 18px); border-color: var(--color-accent-700)">
+        <i class="corner tl" style="color: var(--color-accent-400)"></i><i class="corner tr" style="color: var(--color-accent-400)"></i><i class="corner bl" style="color: var(--color-accent-400)"></i><i class="corner br" style="color: var(--color-accent-400)"></i>
+        <figcaption style="font-family: var(--font-mono); font-size: 12px; color: var(--color-accent-300); text-align: center; padding: 16px; white-space: pre-line">portrait / équipe au travail
+900 × 1200 · à fournir</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid var(--color-divider)">
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(36px, 5vw, 76px) var(--gutter)">
+      <h2 style="font-family: var(--font-heading); font-size: clamp(26px, 3vw, 40px); margin: 0 0 30px; text-transform: uppercase; letter-spacing: -0.02em">
+        Ce à quoi nous accordons de l’importance
+      </h2>
+      <ul style="list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-divider)">
+        {care.map((c) => (
+          <li class="reveal" style="display: flex; gap: 18px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--color-divider)">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--color-accent-700)">{c.n}</span>
+            <span style="font-family: var(--font-heading); font-size: clamp(20px, 2.2vw, 28px)">{c.t}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(36px, 5vw, 76px) var(--gutter)">
+      <h2 style="font-family: var(--font-heading); font-size: clamp(26px, 3vw, 40px); margin: 0 0 30px; text-transform: uppercase; letter-spacing: -0.02em">
+        Pourquoi choisir Renov’Ouest ?
+      </h2>
+      <div style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr))">
+        {reasons.map((r) => (
+          <article class="card blueprint reveal" style="padding: 24px; gap: 10px">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <h3 style="font-family: var(--font-heading); font-size: 22px; margin: 0; line-height: 1.12">{r.title}</h3>
+            <p style="font-size: 14.5px; line-height: 1.6; margin: 0; color: var(--color-neutral-700)">{r.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

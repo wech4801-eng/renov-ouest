@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { services } from '@/data/services';
+import { allServiceNodes, serviceId } from '@/data/schema';
+import { siteUrl } from '@/data/company';
+
+// La page liste reellement ces 4 prestations : l'ItemList decrit cette liste.
+const itemList = {
+  '@type': 'ItemList',
+  '@id': `${siteUrl}/prestations#list`,
+  name: 'Prestations de rénovation et de finition',
+  numberOfItems: services.length,
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: s.name,
+    url: `${siteUrl}/prestations/${s.slug}`,
+    item: { '@id': serviceId(s.slug) },
+  })),
+};
+---
+<BaseLayout
+  title="Prestations — Enduit, façade, peinture, sols | Renov'Ouest Angers"
+  description="Enduit monocouche, travaux de façade, peinture intérieure et pose de sols à Angers et en Maine-et-Loire, en neuf comme en rénovation."
+  path="/prestations"
+  pageType="CollectionPage"
+  breadcrumb={[{ name: "Accueil", path: "/" }, { name: "Prestations" }]}
+  extraSchema={[itemList, ...allServiceNodes()]}
+>
+  <PageHeader
+    kicker="PRESTATIONS"
+    title="Nos prestations de rénovation et de finition"
+    intro="Enduit monocouche, travaux de façade, peinture intérieure et pose de sols, en construction neuve comme en rénovation, pour les particuliers et les professionnels autour d’Angers."
+  />
+
+  <section>
+    <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(36px, 5vw, 76px) var(--gutter); display: flex; flex-direction: column; gap: 28px">
+      {services.map((s) => (
+        <article class="blueprint reveal" style="position: relative; display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr))">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+
+          <div style="padding: clamp(22px, 3vw, 38px)">
+            <p style="font-family: var(--font-mono); font-size: 32px; line-height: 1; color: var(--color-accent-600); margin: 0 0 14px">{s.num}</p>
+            <h2 style="font-family: var(--font-heading); font-size: clamp(26px, 2.8vw, 38px); margin: 0 0 6px; text-transform: uppercase; letter-spacing: -0.02em">{s.name}</h2>
+            <p style="font-family: var(--font-heading); font-size: 18px; margin: 0 0 16px; color: var(--color-accent-700)">{s.sub}</p>
+            <p style="font-size: 15.5px; line-height: 1.65; margin: 0 0 18px; max-width: 54ch">{s.short}</p>
+
+            <ul style="list-style: none; padding: 0; margin: 0 0 22px; display: flex; flex-direction: column; gap: 0">
+              {s.points.map((pt) => (
+                <li style="display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--color-divider); font-size: 14.5px">
+                  <span aria-hidden="true" style="font-family: var(--font-mono); font-size: 11px; color: var(--color-accent-700)">+</span>
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <a class="btn btn-primary blueprint" href={`/prestations/${s.slug}`}
+                 style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">
+                <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                Voir la prestation<span class="sr-only"> : {s.name}</span>
+              </a>
+              <a class="btn btn-secondary" href="/contact" data-analytics="click_quote"
+                 style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">Demander un devis</a>
+            </div>
+          </div>
+
+          <div class="ph" style="border-left: 1px solid var(--color-divider); min-height: 240px; font-size: 12px">{s.image.brief}</div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
