@@ -1,0 +1,49 @@
+name: Deploiement GitHub Pages
+
+# Construit le site a chaque envoi sur main et le publie sur GitHub Pages.
+# Le build sort du code source : aucun fichier genere n'est versionne.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Une seule publication a la fois ; on ne coupe pas un deploiement en cours.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # L'URL publique pilote a elle seule le domaine ET le sous-dossier :
+      # canonicals, sitemap, robots.txt et liens internes en decoulent.
+      - name: Construire le site
+        run: npm run build
+        env:
+          PUBLIC_SITE_URL: https://wech4801-eng.github.io/renov-ouest
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

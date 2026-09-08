@@ -4,11 +4,12 @@ Site de **Rénov'Ouest**, entreprise de rénovation et de finition située au
 91 levée ligérienne, 49130 Saint-Jean-de-la-Croix, près d'Angers.
 Enduit monocouche, travaux de façade, peinture intérieure et pose de sols.
 
-**Aperçu en ligne :** https://wech4801-eng.github.io/renov-ouest/
+**En ligne :** https://wech4801-eng.github.io/renov-ouest/
 
-> Version de validation client (une seule page autonome, en `noindex`).
-> Le site définitif sera déployé sur un hébergement classique — voir
-> [DEPLOIEMENT.md](DEPLOIEMENT.md).
+Le site complet, publié automatiquement à chaque envoi sur `main`
+(voir [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
+Pour la mise en production sur un hébergement classique :
+[DEPLOIEMENT.md](DEPLOIEMENT.md).
 
 ## Stack
 
@@ -30,6 +31,11 @@ Construire pour la production avec le bon domaine :
 ```bash
 PUBLIC_SITE_URL=https://www.renovouest.fr npm run build
 ```
+
+Cette variable pilote **tout** : domaine des URLs canoniques, du sitemap et de
+l'Open Graph, mais aussi le sous-dossier éventuel. Les liens internes passent
+par `src/lib/url.ts`, donc le même code fonctionne à la racine d'un domaine
+comme dans un sous-dossier (`https://user.github.io/renov-ouest`).
 
 ## Structure
 

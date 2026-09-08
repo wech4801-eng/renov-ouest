@@ -1,4 +1,5 @@
 ---
+import { url } from '@/lib/url';
 import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { company } from '@/data/company';
@@ -70,7 +71,7 @@ const kicker = 'font-family: var(--font-mono); font-size: 11px; letter-spacing: 
           </p>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 12px">
-          <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+          <a class="btn btn-primary blueprint" href={url('/contact')} data-analytics="click_quote"
              style="white-space: nowrap; min-height: 56px; padding: 16px 26px; font-size: 17px">
             <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
             Demander un devis
@@ -99,7 +100,7 @@ const kicker = 'font-family: var(--font-mono); font-size: 11px; letter-spacing: 
               <span style="font-family: var(--font-mono); font-size: 34px; line-height: 1; color: var(--color-accent-600)">{s.num}</span>
               <h3 style="font-family: var(--font-heading); font-size: 26px; margin: 4px 0 0; line-height: 1.05">{s.name}</h3>
               <p style="font-size: 14.5px; line-height: 1.6; margin: 0; color: var(--color-neutral-700); flex: 1">{s.short}</p>
-              <a class="link-more" href={`/prestations/${s.slug}`}>En savoir plus<span class="sr-only"> sur {s.name} à Angers</span> →</a>
+              <a class="link-more" href={url(`/prestations/${s.slug}`)}>En savoir plus<span class="sr-only"> sur {s.name} à Angers</span> →</a>
             </div>
           </article>
         ))}
@@ -144,7 +145,7 @@ const kicker = 'font-family: var(--font-mono); font-size: 11px; letter-spacing: 
     <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(44px, 6vw, 88px) var(--gutter)">
       <div style="display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin: 0 0 30px">
         <h2 style={h2Style}>Réalisations</h2>
-        <a class="link-more" href="/realisations" style="margin-left: auto">Voir toutes les réalisations →</a>
+        <a class="link-more" href={url('/realisations')} style="margin-left: auto">Voir toutes les réalisations →</a>
       </div>
       <div style="display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr))">
         {teaser.map((t) => (
@@ -188,7 +189,7 @@ const kicker = 'font-family: var(--font-mono); font-size: 11px; letter-spacing: 
           des professionnels pour leurs projets de rénovation, de façade, d’enduit, de peinture
           intérieure et de pose de sols.
         </p>
-        <a class="btn btn-secondary" href="/zone-intervention"
+        <a class="btn btn-secondary" href={url('/zone-intervention')}
            style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">
           Voir la zone d’intervention
         </a>
@@ -216,7 +217,7 @@ const kicker = 'font-family: var(--font-mono); font-size: 11px; letter-spacing: 
         </p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px">
-        <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+        <a class="btn btn-primary blueprint" href={url('/contact')} data-analytics="click_quote"
            style="white-space: nowrap; min-height: 56px; padding: 16px 26px; font-size: 17px">
           <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
           Demander un devis

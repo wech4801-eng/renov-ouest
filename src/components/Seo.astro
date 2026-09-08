@@ -32,7 +32,9 @@ const {
   extraSchema = [],
 } = Astro.props;
 
-const abs = (p: string) => new URL(p, siteUrl).href;
+// siteUrl peut contenir un sous-dossier : on concatene au lieu de resoudre,
+// sinon new URL('/contact', 'https://x/renov-ouest') ecraserait le sous-dossier.
+const abs = (p: string) => (p === '/' ? `${siteUrl}/` : `${siteUrl}${p}`);
 const canonical = abs(path === '/' ? '/' : path);
 const ogImage = abs(image);
 const fullTitle = title.includes(company.name) ? title : `${title} | ${company.name}`;

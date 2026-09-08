@@ -9,7 +9,9 @@ import type { APIRoute } from 'astro';
  * pouvoir les explorer pour lire leur directive noindex.
  */
 export const GET: APIRoute = ({ site }) => {
-  const base = (site ?? new URL('https://www.renovouest.fr')).origin;
+  const origin = (site ?? new URL('https://www.renovouest.fr')).origin;
+  const prefix = import.meta.env.BASE_URL.replace(/\/+$/, '');
+  const base = origin + prefix;
   const body = [
     `# ${base}/robots.txt`,
     'User-agent: *',

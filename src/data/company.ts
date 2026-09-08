@@ -74,5 +74,6 @@ export const nav = [
 export const formEndpoint =
   import.meta.env.PUBLIC_FORM_ENDPOINT ?? '/api/contact.php';
 
-export const siteUrl =
-  import.meta.env.PUBLIC_SITE_URL ?? 'https://www.renovouest.fr';
+export const siteUrl = (
+  import.meta.env.PUBLIC_SITE_URL ?? 'https://www.renovouest.fr'
+).replace(/\/+$/, '');

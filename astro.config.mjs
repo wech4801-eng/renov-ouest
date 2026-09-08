@@ -14,6 +14,7 @@ import path from 'node:path';
 const dropLegacyWoff = () => ({
   name: 'drop-legacy-woff',
   hooks: {
+    /** @param {{ dir: URL, logger: { info: (m: string) => void } }} ctx */
     'astro:build:done': async ({ dir, logger }) => {
       const assets = path.join(fileURLToPath(dir), '_astro');
       let removed = 0;
@@ -28,11 +29,17 @@ const dropLegacyWoff = () => ({
   },
 });
 
-// Domaine definitif a confirmer avec le client (cf. README, section Domaine).
-const SITE = process.env.PUBLIC_SITE_URL || 'https://www.renovouest.fr';
+// Une seule variable pilote le deploiement : l'URL publique complete.
+// Elle peut inclure un sous-dossier (GitHub Pages) ou non (hebergement classique).
+//   https://www.renovouest.fr            -> site = origin, base = /
+//   https://user.github.io/renov-ouest   -> site = origin, base = /renov-ouest
+const PUBLIC_URL = new URL(process.env.PUBLIC_SITE_URL || 'https://www.renovouest.fr');
+const SITE = PUBLIC_URL.origin;
+const BASE = PUBLIC_URL.pathname.replace(/\/+$/, '') || '/';
 
 export default defineConfig({
   site: SITE,
+  base: BASE,
   output: 'static',
   trailingSlash: 'never',
   // La feuille de style fait ~8 Ko : l'inliner supprime une requete
@@ -47,7 +54,10 @@ export default defineConfig({
       //  - mentions legales / confidentialite : <meta robots noindex>
       //  - realisations : noindex tant qu'aucun chantier n'est publie
       filter: (page) => {
-        const path = new URL(page).pathname.replace(/\/$/, '');
+        // On retire le prefixe de deploiement avant de comparer la route.
+        const prefix = BASE === '/' ? '' : BASE;
+        const full = new URL(page).pathname.replace(/\/+$/, '');
+        const path = (full.startsWith(prefix) ? full.slice(prefix.length) : full) || '/';
         const noindex = ['/mentions-legales', '/politique-confidentialite'];
         if (projects.length === 0) noindex.push('/realisations');
         return !noindex.includes(path);

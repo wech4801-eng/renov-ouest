@@ -1,4 +1,5 @@
 ---
+import { url } from '@/lib/url';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { services } from '@/data/services';
 import { company } from '@/data/company';
@@ -34,9 +35,9 @@ const h2 = 'font-family: var(--font-heading); font-size: clamp(22px, 2.4vw, 32px
     <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(22px, 3vw, 34px) var(--gutter) clamp(36px, 5vw, 72px)">
       <nav aria-label="Fil d’Ariane" style="margin: 0 0 28px">
         <ol style="list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--color-accent-300)">
-          <li><a href="/" style="text-decoration: none; color: var(--color-accent-300)">Accueil</a></li>
+          <li><a href={url('/')} style="text-decoration: none; color: var(--color-accent-300)">Accueil</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/prestations" style="text-decoration: none; color: var(--color-accent-300)">Prestations</a></li>
+          <li><a href={url('/prestations')} style="text-decoration: none; color: var(--color-accent-300)">Prestations</a></li>
           <li aria-hidden="true">/</li>
           <li aria-current="page" style="color: #f7f4ef">{service.name}</li>
         </ol>
@@ -52,7 +53,7 @@ const h2 = 'font-family: var(--font-heading); font-size: clamp(22px, 2.4vw, 32px
             <p style="font-size: 15.5px; line-height: 1.7; max-width: 58ch; margin: 0 0 28px; color: var(--color-accent-200)">{service.body[1]}</p>
           )}
           <div style="display: flex; flex-wrap: wrap; gap: 12px">
-            <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+            <a class="btn btn-primary blueprint" href={url('/contact')} data-analytics="click_quote"
                style="white-space: nowrap; min-height: 54px; padding: 15px 24px; font-size: 16px">
               <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
               Demander un devis
@@ -105,7 +106,7 @@ const h2 = 'font-family: var(--font-heading); font-size: clamp(22px, 2.4vw, 32px
       <h2 style={h2}>Autres prestations</h2>
       <div style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr))">
         {others.map((o) => (
-          <a class="blueprint card-link" href={`/prestations/${o.slug}`}
+          <a class="blueprint card-link" href={url(`/prestations/${o.slug}`)}
              style="position: relative; padding: 22px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 6px">
             <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
             <span style="font-family: var(--font-heading); font-size: 21px">{o.name}</span>

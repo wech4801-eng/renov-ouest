@@ -1,9 +1,16 @@
 ---
+import { url } from '@/lib/url';
 import { Image } from 'astro:assets';
 import { company, nav } from '@/data/company';
 import logo from '@/assets/logo-renov-ouest.jpg';
 
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+// On retire le prefixe de deploiement avant de comparer les routes.
+const BASE = import.meta.env.BASE_URL.replace(/\/+$/, '');
+const path =
+  (BASE && Astro.url.pathname.startsWith(BASE)
+    ? Astro.url.pathname.slice(BASE.length)
+    : Astro.url.pathname
+  ).replace(/\/+$/, '') || '/';
 const current = (href: string) =>
   href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
 
@@ -15,7 +22,7 @@ const linkStyle = 'font-family: var(--font-heading); font-size: 15px; text-decor
 >
   <div style="max-width: var(--shell); margin: 0 auto; padding: 10px var(--gutter); display: flex; align-items: center; gap: 22px">
     <a
-      href="/"
+      href={url('/')}
       style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; margin-right: auto"
     >
       <Image
@@ -33,14 +40,14 @@ const linkStyle = 'font-family: var(--font-heading); font-size: 15px; text-decor
 
     <nav class="rw-desktop-nav" aria-label="Navigation principale" style="display: flex; align-items: center; gap: 22px">
       {nav.map((item) => (
-        <a href={item.href} style={linkStyle} data-navlink
+        <a href={url(item.href)} style={linkStyle} data-navlink
            aria-current={current(item.href) ? 'page' : undefined}>{item.label}</a>
       ))}
       <a href={company.phone.href} data-analytics="click_phone"
          style="text-decoration: none; color: inherit; border-left: 1px solid var(--color-accent-700); padding-left: 20px">
         <span style="font-family: var(--font-heading); font-size: 17px; white-space: nowrap">{company.phone.display}</span>
       </a>
-      <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+      <a class="btn btn-primary blueprint" href={url('/contact')} data-analytics="click_quote"
          style="padding: 11px 17px; font-size: 14px">
         <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
         Demander un devis
@@ -61,12 +68,12 @@ const linkStyle = 'font-family: var(--font-heading); font-size: 15px; text-decor
   <nav id="nav-drawer" hidden aria-label="Navigation mobile"
        style="border-top: 1px solid var(--color-accent-700); padding: 8px var(--gutter) 20px; display: flex; flex-direction: column; background: #1e2b3a">
     {nav.map((item) => (
-      <a href={item.href} aria-current={current(item.href) ? 'page' : undefined}
+      <a href={url(item.href)} aria-current={current(item.href) ? 'page' : undefined}
          style="padding: 14px 0; min-height: 48px; font-family: var(--font-heading); font-size: 19px; text-decoration: none; color: inherit; border-bottom: 1px solid var(--color-accent-800); display: flex; align-items: center">
         {item.label}
       </a>
     ))}
-    <a class="btn btn-primary blueprint" href="/contact" data-analytics="click_quote"
+    <a class="btn btn-primary blueprint" href={url('/contact')} data-analytics="click_quote"
        style="margin-top: 18px; min-height: 52px; font-size: 16px">
       <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
       Demander un devis

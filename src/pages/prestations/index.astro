@@ -1,4 +1,5 @@
 ---
+import { url } from '@/lib/url';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import { services } from '@/data/services';
@@ -56,12 +57,12 @@ const itemList = {
             </ul>
 
             <div style="display: flex; flex-wrap: wrap; gap: 10px">
-              <a class="btn btn-primary blueprint" href={`/prestations/${s.slug}`}
+              <a class="btn btn-primary blueprint" href={url(`/prestations/${s.slug}`)}
                  style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">
                 <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
                 Voir la prestation<span class="sr-only"> : {s.name}</span>
               </a>
-              <a class="btn btn-secondary" href="/contact" data-analytics="click_quote"
+              <a class="btn btn-secondary" href={url('/contact')} data-analytics="click_quote"
                  style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">Demander un devis</a>
             </div>
           </div>

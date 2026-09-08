@@ -1,4 +1,5 @@
 ---
+import { url } from '@/lib/url';
 import '@/styles/global.css';
 // URL resolue par Vite (nom avec empreinte) : permet de precharger la police
 // du titre principal, qui porte le LCP, sans attendre l'analyse du CSS.
@@ -31,9 +32,9 @@ const { title, description, path, image, noindex, pageType, breadcrumb, extraSch
     <meta name="theme-color" content="#1e2b3a" />
     <link rel="preload" href={headingFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <link rel="sitemap" href={url('/sitemap-index.xml')} />
     <Seo {title} {description} {path} {image} {noindex} {pageType} {breadcrumb} {extraSchema} />
   </head>
   <body>
