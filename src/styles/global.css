@@ -288,6 +288,35 @@ textarea.input { min-height: 90px; resize: vertical; }
 @media (max-width: 1060px) {
   .rw-desktop-nav { display: none !important; }
   .rw-burger { display: inline-flex !important; }
+
+  /* En-tete mobile : le logo est centre, le menu passe en absolu a droite.
+     Les valeurs inline du composant sont surchargees ici, d'ou les !important. */
+  .rw-headbar {
+    position: relative;
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+  .rw-brand {
+    margin-right: 0 !important;
+    gap: 14px !important;
+  }
+  /* La baseline rendrait le bloc trop large pour tenir centre sans passer sous
+     le bouton menu. Elle reste presente dans le hero et le pied de page. */
+  .rw-brand-tag { display: none; }
+  .rw-brand .rw-brand-name { font-size: 25px !important; }
+  /* Logo plus grand et plus present : bordure bronze pleine au lieu du ton sourd. */
+  .rw-brand img {
+    width: 60px !important;
+    height: 60px !important;
+    border-width: 2px !important;
+    border-color: var(--color-accent) !important;
+  }
+  .rw-headbar .rw-burger {
+    position: absolute;
+    right: var(--gutter);
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 @media (min-width: 1061px) {
   .rw-burger { display: none !important; }
