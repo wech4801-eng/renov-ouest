@@ -12,15 +12,15 @@ const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${geo.lon
 const h2 = 'font-family: var(--font-heading); font-size: clamp(24px, 2.6vw, 34px); margin: 0 0 22px; text-transform: uppercase; letter-spacing: -0.02em';
 ---
 <BaseLayout
-  title="Zone d'intervention : Angers et Maine-et-Loire | Renov'Ouest"
-  description="Renov'Ouest intervient à Saint-Jean-de-la-Croix, à Angers et ses alentours, ainsi qu'en Maine-et-Loire, pour vos travaux de façade et de finition."
+  title="Entreprise de rénovation à Angers et en Maine-et-Loire | Renov'Ouest"
+  description="Rénov'Ouest intervient à Saint-Jean-de-la-Croix, Angers et en Maine-et-Loire : rénovation complète de maison, d'appartement et de locaux professionnels."
   path="/zone-intervention"
   breadcrumb={[{ name: "Accueil", path: "/" }, { name: "Zone d’intervention" }]}
 >
   <PageHeader
     kicker="ZONE D’INTERVENTION"
-    title="Renov’Ouest intervient à Saint-Jean-de-la-Croix et autour d’Angers"
-    intro="Basés à Saint-Jean-de-la-Croix, près d’Angers, nous intervenons auprès des particuliers et des professionnels pour leurs projets de rénovation, de façade, d’enduit, de peinture intérieure et de pose de sols."
+    title="Votre entreprise de rénovation à Saint-Jean-de-la-Croix et autour d’Angers"
+    intro="Basés à Saint-Jean-de-la-Croix, près d’Angers, nous intervenons auprès des particuliers et des professionnels : rénovation complète d’une maison ou d’un appartement, rénovation intérieure, rénovation extérieure et travaux de locaux professionnels."
     titleWidth={26}
   />
 
@@ -109,6 +109,8 @@ const h2 = 'font-family: var(--font-heading); font-size: clamp(24px, 2.6vw, 34px
         <div style="padding: 20px 0; border-top: 1px solid var(--color-divider); padding-right: 28px">
           <dt style="font-family: var(--font-heading); font-size: 18px; text-transform: uppercase; letter-spacing: 0.02em">Quels travaux</dt>
           <dd style="margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--color-neutral-800)">
+            Rénovation complète, rénovation intérieure et rénovation extérieure. Dans ce cadre,
+            nous réalisons notamment&nbsp;:{' '}
             {services.map((s, i) => (
               <>
                 {i > 0 && ', '}

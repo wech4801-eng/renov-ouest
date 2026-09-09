@@ -10,9 +10,33 @@ export const company = {
   displayName: "Rénov'Ouest",
   tagline: 'Rénovons aujourd’hui, embellissons demain',
   legalName: "Renov'Ouest",
+  /**
+   * Positionnement : entreprise de renovation COMPLETE. Les savoir-faire
+   * (peinture, enduit, facade, sols) sont des composantes de cette offre
+   * globale, jamais l'activite principale.
+   */
   description:
-    'Entreprise de rénovation et de finition spécialisée dans les travaux de façade, ' +
-    'l’enduit monocouche, la peinture intérieure et la pose de sols.',
+    'Entreprise de rénovation complète à Saint-Jean-de-la-Croix, près d’Angers : ' +
+    'rénovation intérieure et extérieure de maisons, d’appartements et de locaux ' +
+    'professionnels, avec une exigence particulière sur la qualité des finitions.',
+
+  /** Accroche principale du site. Ne pas raccourcir ni reformuler. */
+  headline: 'La rénovation complète de votre projet, avec l’exigence du détail.',
+
+  /** Phrase d'explication placee directement sous l'accroche. */
+  intro:
+    'De la transformation de vos espaces aux dernières finitions, Rénov’Ouest vous ' +
+    'accompagne dans vos projets de rénovation, de A à Z, pour particuliers comme ' +
+    'professionnels.',
+
+  /** Ce que l'entreprise peut renover. */
+  buildingTypes: [
+    'Maison',
+    'Appartement',
+    'Local professionnel',
+    'Commerce',
+    'Bureaux',
+  ],
 
   address: {
     street: '91 levée ligérienne',
@@ -54,11 +78,11 @@ export const company = {
   audience: ['Particuliers', 'Professionnels'],
 
   projectTypes: [
+    'Rénovation complète',
+    'Rénovation intérieure',
+    'Rénovation extérieure',
     'Construction neuve',
-    'Rénovation',
     'Embellissement',
-    'Travaux de finition intérieure',
-    'Travaux de finition extérieure',
   ],
 } as const;
 

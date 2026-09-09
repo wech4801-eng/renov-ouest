@@ -77,9 +77,17 @@ const business = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: geo.latitude, longitude: geo.longitude },
   areaServed: company.serviceArea.map((name) => ({ '@type': 'Place', name })),
+  // L'offre globale d'abord, les savoir-faire ensuite : l'ordre reflete le
+  // positionnement de l'entreprise.
   knowsAbout: [
-    'Enduit monocouche',
+    'Rénovation complète',
+    'Rénovation intérieure',
+    'Rénovation extérieure',
+    'Rénovation de maison',
+    'Rénovation d’appartement',
+    'Rénovation de locaux professionnels',
     'Travaux de façade',
+    'Enduit monocouche',
     'Peinture intérieure',
     'Pose de sols',
     'Préparation des supports',

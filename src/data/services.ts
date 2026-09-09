@@ -1,16 +1,23 @@
 /**
- * Les quatre prestations principales.
- * Textes issus du PRD client — ne pas inventer de garantie, de label ni de chiffre.
+ * Savoir-faire de Renov'Ouest.
+ *
+ * POSITIONNEMENT : l'entreprise fait de la RENOVATION COMPLETE. Les quatre
+ * savoir-faire ci-dessous sont des composantes d'un projet global, jamais
+ * l'activite principale. Chaque texte doit permettre au visiteur de comprendre
+ * qu'il peut confier a l'entreprise un chantier bien plus large.
+ *
+ * Aucune technique, garantie ni certification non confirmee n'est mentionnee.
  */
 
 export type Service = {
   /** Segment d'URL sous /prestations/ */
   slug: string;
-  /** Numero de poste affiche sur la ligne de mesure */
+  /** Numero d'ordre affiche dans les listes */
   num: string;
   name: string;
-  /** Libelle court pour la navigation et les listes */
   navLabel: string;
+  /** Famille de rattachement : situe le savoir-faire dans l'offre globale. */
+  family: 'Rénovation intérieure' | 'Rénovation extérieure';
   sub: string;
   /** Resume d'une phrase, utilise sur l'accueil et la page prestations */
   short: string;
@@ -18,8 +25,9 @@ export type Service = {
   points: string[];
   /** Ce que couvre concretement l'intervention */
   scope: string[];
+  /** Rappelle que le savoir-faire s'inscrit dans un projet plus large. */
+  global: string;
   seo: { title: string; description: string };
-  /** Visuel a fournir par le client : chemin + texte alternatif */
   image: { src: string | null; alt: string; brief: string };
 };
 
@@ -29,28 +37,31 @@ export const services: Service[] = [
     num: '01',
     name: 'Enduit monocouche',
     navLabel: 'Enduit monocouche',
-    sub: 'Une finition extérieure à la fois esthétique et durable',
+    family: 'Rénovation extérieure',
+    sub: 'Habiller et protéger vos façades, en neuf comme en rénovation',
     short:
-      'Application de l’enduit monocouche sur supports adaptés, en construction neuve comme en rénovation.',
+      'L’enduit de façade, réalisé seul ou dans le cadre d’une rénovation extérieure plus large.',
     body: [
-      'Nous réalisons l’application de l’enduit monocouche sur supports adaptés, en construction neuve comme en rénovation. Après une préparation rigoureuse du support, nous procédons à la mise en œuvre de l’enduit dans le respect des règles professionnelles afin d’obtenir une finition homogène, esthétique et durable.',
-      'Nous intervenons notamment pour la préparation des supports, l’application de l’enduit et la réalisation des différentes finitions, selon les besoins du projet.',
+      'L’enduit monocouche donne à un bâtiment son aspect définitif tout en protégeant ses murs. Nous l’appliquons sur supports adaptés, aussi bien en construction neuve que dans le cadre de la rénovation d’une maison, d’un appartement ou d’un local professionnel.',
+      'Après une préparation rigoureuse du support, nous procédons à la mise en œuvre de l’enduit dans le respect des règles professionnelles, afin d’obtenir une finition homogène, esthétique et durable.',
     ],
     points: [
       'Préparation rigoureuse du support',
       'Application dans le respect des règles professionnelles',
-      'Finitions adaptées aux besoins du projet',
+      'Finitions adaptées au rendu recherché',
     ],
     scope: ['Préparation des supports', 'Application de l’enduit', 'Réalisation des finitions'],
+    global:
+      'Votre projet ne se limite pas à l’enduit ? Nous prenons en charge la rénovation extérieure dans son ensemble, et jusqu’à la rénovation complète de votre bien.',
     seo: {
-      title: 'Enduit monocouche à Angers et en Maine-et-Loire',
+      title: 'Enduit monocouche à Angers — Rénovation de façade',
       description:
-        'Application d’enduit monocouche en neuf et en rénovation à Angers et en Maine-et-Loire. Préparation des supports et finitions soignées.',
+        'Application d’enduit monocouche à Angers et en Maine-et-Loire, seule ou intégrée à une rénovation extérieure complète. Préparation des supports et finitions soignées.',
     },
     image: {
       src: null,
-      alt: 'Façade enduite en monocouche réalisée par Renov’Ouest',
-      brief: 'photo enduit monocouche\n1200 × 900 · à fournir',
+      alt: 'Façade enduite en monocouche par Rénov’Ouest, près d’Angers',
+      brief: 'Façade terminée en enduit monocouche, lumière rasante — 1600 × 1200',
     },
   },
   {
@@ -58,28 +69,31 @@ export const services: Service[] = [
     num: '02',
     name: 'Façade',
     navLabel: 'Travaux de façade',
-    sub: 'Travaux de façade et rénovation extérieure',
+    family: 'Rénovation extérieure',
+    sub: 'Remettre en état et valoriser l’extérieur de votre bâtiment',
     short:
-      'Prise en charge des travaux de façade, de la préparation des supports jusqu’à la finition.',
+      'La remise en état des façades, de la préparation des supports jusqu’au rendu final.',
     body: [
-      'Nous prenons en charge vos travaux de façade, de la préparation des supports jusqu’à la finition. Notre intervention permet de protéger durablement les façades tout en améliorant l’aspect esthétique du bâtiment.',
-      'Nous réalisons les travaux de préparation, de réparation et de finition nécessaires afin de garantir un résultat propre, régulier et durable.',
+      'La façade est ce que l’on voit en premier, et ce qui protège le bâtiment. Nous prenons en charge sa remise en état : préparation des supports, réparations nécessaires, puis finition. L’intervention protège durablement les murs tout en transformant l’aspect extérieur.',
+      'Ces travaux peuvent être menés seuls, ou s’inscrire dans une rénovation extérieure plus large — voire dans la rénovation complète d’une maison ou d’un local professionnel.',
     ],
     points: [
-      'Préparation des supports',
+      'Préparation et remise en état des supports',
       'Travaux de réparation',
       'Finitions propres, régulières et durables',
     ],
     scope: ['Préparation', 'Réparation', 'Finition'],
+    global:
+      'Une façade rénovée s’accompagne souvent d’autres travaux. Nous coordonnons l’ensemble du chantier si votre projet va plus loin.',
     seo: {
-      title: 'Travaux de façade et rénovation extérieure à Angers',
+      title: 'Rénovation de façade à Angers — Entreprise de rénovation',
       description:
-        'Façadier à Saint-Jean-de-la-Croix, près d’Angers : préparation, réparation et finition de façade pour protéger durablement votre bâtiment. Devis sur demande.',
+        'Rénovation et remise en état de façade à Saint-Jean-de-la-Croix, Angers et en Maine-et-Loire : préparation, réparation, finition. Projets complets pris en charge.',
     },
     image: {
       src: null,
-      alt: 'Façade rénovée par Renov’Ouest près d’Angers',
-      brief: 'photo façade avant / après\n1200 × 900 · à fournir',
+      alt: 'Façade rénovée par Rénov’Ouest près d’Angers',
+      brief: 'Façade avant / après, même cadrage et même heure — 1600 × 1200 ×2',
     },
   },
   {
@@ -87,28 +101,31 @@ export const services: Service[] = [
     num: '03',
     name: 'Peinture intérieure',
     navLabel: 'Peinture intérieure',
-    sub: 'Travaux de peinture et finitions intérieures',
+    family: 'Rénovation intérieure',
+    sub: 'Donner à vos pièces leur aspect définitif',
     short:
-      'Travaux de peinture sur murs et plafonds, aussi bien dans le neuf qu’en rénovation.',
+      'La mise en peinture des murs et plafonds, étape de finition d’une rénovation intérieure.',
     body: [
-      'Nous réalisons vos travaux de peinture sur murs et plafonds, aussi bien dans le neuf qu’en rénovation.',
-      'Une préparation rigoureuse des surfaces permet d’obtenir un résultat homogène, propre et durable.',
+      'La peinture est souvent la dernière étape d’un chantier : c’est elle qui donne à une pièce son aspect définitif. Nous intervenons sur les murs et les plafonds, aussi bien pour la remise à neuf d’une seule pièce que dans le cadre de la rénovation intérieure d’un logement ou d’un local.',
+      'Le résultat dépend d’abord de ce qui se passe avant : une préparation rigoureuse des surfaces permet d’obtenir un rendu homogène, propre et durable.',
     ],
     points: [
-      'Peinture des murs et plafonds',
-      'Neuf et rénovation',
       'Préparation rigoureuse des surfaces',
+      'Peinture des murs et plafonds',
+      'Rendu homogène, propre et durable',
     ],
     scope: ['Préparation des surfaces', 'Mise en peinture', 'Finitions'],
+    global:
+      'La peinture intervient rarement seule : elle clôture une transformation. Nous pouvons prendre en charge l’ensemble des travaux qui la précèdent.',
     seo: {
-      title: 'Peinture intérieure à Angers',
+      title: 'Peinture intérieure à Angers — Rénovation intérieure',
       description:
-        'Travaux de peinture intérieure sur murs et plafonds à Angers et en Maine-et-Loire, en neuf comme en rénovation. Préparation soignée des surfaces.',
+        'Peinture des murs et plafonds à Angers et en Maine-et-Loire, en rénovation comme en neuf. Préparation soignée des surfaces, dans le cadre de projets complets.',
     },
     image: {
       src: null,
-      alt: 'Pièce peinte par Renov’Ouest',
-      brief: 'photo pièce peinte\n1200 × 900 · à fournir',
+      alt: 'Pièce rénovée et mise en peinture par Rénov’Ouest',
+      brief: 'Pièce terminée, lumière naturelle, angle large — 1600 × 1200',
     },
   },
   {
@@ -116,30 +133,48 @@ export const services: Service[] = [
     num: '04',
     name: 'Pose de sols',
     navLabel: 'Pose de sols',
-    sub: 'Une pose précise pour un résultat durable',
+    family: 'Rénovation intérieure',
+    sub: 'Un sol posé avec précision, pour un résultat qui dure',
     short:
-      'Pose de revêtements de sols, avec une attention particulière portée à la préparation des supports.',
+      'La pose des revêtements de sols, composante d’un projet de rénovation intérieure.',
     body: [
-      'Nous assurons la pose de vos revêtements de sols en apportant une attention particulière à la préparation des supports, à la précision de la mise en œuvre et aux finitions.',
+      'Changer un sol transforme une pièce autant que la peinture. Nous assurons la pose de vos revêtements en apportant une attention particulière à la préparation des supports, à la précision de la mise en œuvre et aux finitions — notamment aux raccords et aux jonctions, là où le travail se juge.',
+      'Cette étape s’inscrit naturellement dans une rénovation intérieure, qu’il s’agisse d’une pièce ou de l’ensemble d’un logement.',
     ],
     points: [
       'Préparation des supports',
       'Précision de la mise en œuvre',
-      'Finitions soignées',
+      'Finitions et raccords soignés',
     ],
     scope: ['Préparation du support', 'Pose du revêtement', 'Finitions'],
+    global:
+      'Sol, peinture, cloisons : ces travaux se pensent ensemble. Nous coordonnons votre rénovation intérieure dans sa globalité.',
     seo: {
-      title: 'Pose de sols à Angers',
+      title: 'Pose de sols à Angers — Rénovation intérieure',
       description:
-        'Pose de revêtements de sols à Angers et en Maine-et-Loire : préparation des supports, mise en œuvre précise et finitions soignées. Devis sur demande.',
+        'Pose de revêtements de sols à Angers et en Maine-et-Loire : préparation des supports, mise en œuvre précise et finitions soignées, au sein de projets de rénovation.',
     },
     image: {
       src: null,
-      alt: 'Sol posé par Renov’Ouest',
-      brief: 'photo pose de sol\n1200 × 900 · à fournir',
+      alt: 'Sol posé par Rénov’Ouest dans une pièce rénovée',
+      brief: 'Sol fini, raccord mural net, lumière rasante — 1600 × 1200',
     },
   },
 ];
 
 export const getService = (slug: string): Service | undefined =>
   services.find((s) => s.slug === slug);
+
+/** Savoir-faire regroupes par famille, pour exprimer la hierarchie de l'offre. */
+export const servicesByFamily = () => [
+  {
+    family: 'Rénovation intérieure' as const,
+    lead: 'Transformer, aménager et remettre à neuf vos espaces de vie ou de travail.',
+    items: services.filter((s) => s.family === 'Rénovation intérieure'),
+  },
+  {
+    family: 'Rénovation extérieure' as const,
+    lead: 'Protéger le bâtiment et lui redonner l’aspect qu’il mérite.',
+    items: services.filter((s) => s.family === 'Rénovation extérieure'),
+  },
+];

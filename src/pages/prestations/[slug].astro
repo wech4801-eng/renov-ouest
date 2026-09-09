@@ -48,6 +48,9 @@ const h2 = 'font-family: var(--font-heading); font-size: clamp(22px, 2.4vw, 32px
           <p style="font-family: var(--font-mono); font-size: 34px; line-height: 1; color: var(--color-accent-400); margin: 0 0 16px">{service.num}</p>
           <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(38px, 6vw, 78px); line-height: 0.94; margin: 0 0 14px; text-transform: uppercase; letter-spacing: -0.025em">{service.name}</h1>
           <p style="font-family: var(--font-heading); font-size: clamp(18px, 1.9vw, 24px); margin: 0 0 24px; color: var(--color-accent-300)">{service.sub}</p>
+          <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; margin: -14px 0 24px; color: var(--color-accent)">
+            UN SAVOIR-FAIRE DE NOTRE OFFRE DE {service.family.toUpperCase()}
+          </p>
           <p style="font-size: clamp(16px, 1.3vw, 17.5px); line-height: 1.7; max-width: 58ch; margin: 0 0 16px; color: var(--color-accent-200)">{service.body[0]}</p>
           {service.body[1] && (
             <p style="font-size: 15.5px; line-height: 1.7; max-width: 58ch; margin: 0 0 28px; color: var(--color-accent-200)">{service.body[1]}</p>
@@ -56,7 +59,7 @@ const h2 = 'font-family: var(--font-heading); font-size: clamp(22px, 2.4vw, 32px
             <a class="btn btn-primary blueprint" href={url('/contact')} data-analytics="click_quote"
                style="white-space: nowrap; min-height: 54px; padding: 15px 24px; font-size: 16px">
               <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-              Demander un devis
+              Parlons de votre projet
             </a>
             <a class="btn" href={company.phone.href} data-analytics="click_phone"
                style="white-space: nowrap; min-height: 54px; padding: 15px 22px; font-size: 16px; color: #f7f4ef; border-color: var(--color-accent-700)">
@@ -103,7 +106,21 @@ const h2 = 'font-family: var(--font-heading); font-size: clamp(22px, 2.4vw, 32px
 
   <section>
     <div style="max-width: var(--shell); margin: 0 auto; padding: clamp(32px, 4vw, 64px) var(--gutter)">
-      <h2 style={h2}>Autres prestations</h2>
+      <div class="blueprint" style="position: relative; padding: clamp(22px, 3vw, 34px); margin: 0 0 clamp(34px, 5vw, 56px); background: var(--color-accent-100)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <p style="font-family: var(--font-heading); font-size: clamp(19px, 2vw, 25px); margin: 0 0 10px; text-transform: uppercase; letter-spacing: -0.01em">
+          Votre projet va plus loin ?
+        </p>
+        <p style="font-size: 15.5px; line-height: 1.65; margin: 0 0 18px; max-width: 62ch; color: var(--color-neutral-800)">
+          {service.global}
+        </p>
+        <a class="btn btn-primary" href={url('/contact')} data-analytics="click_quote"
+           style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">
+          Présenter mon projet
+        </a>
+      </div>
+
+      <h2 style={h2}>Nos autres savoir-faire</h2>
       <div style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr))">
         {others.map((o) => (
           <a class="blueprint card-link" href={url(`/prestations/${o.slug}`)}

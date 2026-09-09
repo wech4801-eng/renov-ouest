@@ -10,7 +10,7 @@ import { siteUrl } from '@/data/company';
 const itemList = {
   '@type': 'ItemList',
   '@id': `${siteUrl}/prestations#list`,
-  name: 'Prestations de rénovation et de finition',
+  name: 'Savoir-faire de rénovation intérieure et extérieure',
   numberOfItems: services.length,
   itemListElement: services.map((s, i) => ({
     '@type': 'ListItem',
@@ -22,17 +22,17 @@ const itemList = {
 };
 ---
 <BaseLayout
-  title="Prestations — Enduit, façade, peinture, sols | Renov'Ouest Angers"
-  description="Enduit monocouche, travaux de façade, peinture intérieure et pose de sols à Angers et en Maine-et-Loire, en neuf comme en rénovation."
+  title="Nos savoir-faire — Rénovation intérieure et extérieure | Renov'Ouest"
+  description="Rénovation complète à Angers et en Maine-et-Loire : rénovation intérieure et extérieure, façade, enduit, peinture et pose de sols, réunis dans une même prise en charge."
   path="/prestations"
   pageType="CollectionPage"
   breadcrumb={[{ name: "Accueil", path: "/" }, { name: "Prestations" }]}
   extraSchema={[itemList, ...allServiceNodes()]}
 >
   <PageHeader
-    kicker="PRESTATIONS"
-    title="Nos prestations de rénovation et de finition"
-    intro="Enduit monocouche, travaux de façade, peinture intérieure et pose de sols, en construction neuve comme en rénovation, pour les particuliers et les professionnels autour d’Angers."
+    kicker="NOS SAVOIR-FAIRE"
+    title="Une rénovation complète, savoir-faire par savoir-faire"
+    intro="Rénov’Ouest prend en charge votre projet de rénovation dans sa globalité. Les savoir-faire ci-dessous peuvent intervenir seuls, sur une intervention ciblée, ou s’enchaîner dans le cadre d’une rénovation complète — pour les particuliers comme pour les professionnels autour d’Angers."
   />
 
   <section>
@@ -43,6 +43,7 @@ const itemList = {
 
           <div style="padding: clamp(22px, 3vw, 38px)">
             <p style="font-family: var(--font-mono); font-size: 32px; line-height: 1; color: var(--color-accent-600); margin: 0 0 14px">{s.num}</p>
+            <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--color-accent-700); margin: 0 0 8px">{s.family.toUpperCase()}</p>
             <h2 style="font-family: var(--font-heading); font-size: clamp(26px, 2.8vw, 38px); margin: 0 0 6px; text-transform: uppercase; letter-spacing: -0.02em">{s.name}</h2>
             <p style="font-family: var(--font-heading); font-size: 18px; margin: 0 0 16px; color: var(--color-accent-700)">{s.sub}</p>
             <p style="font-size: 15.5px; line-height: 1.65; margin: 0 0 18px; max-width: 54ch">{s.short}</p>
@@ -60,7 +61,7 @@ const itemList = {
               <a class="btn btn-primary blueprint" href={url(`/prestations/${s.slug}`)}
                  style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">
                 <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
-                Voir la prestation<span class="sr-only"> : {s.name}</span>
+                Découvrir ce savoir-faire<span class="sr-only"> : {s.name}</span>
               </a>
               <a class="btn btn-secondary" href={url('/contact')} data-analytics="click_quote"
                  style="white-space: nowrap; min-height: 48px; padding: 12px 20px; font-size: 15px">Demander un devis</a>

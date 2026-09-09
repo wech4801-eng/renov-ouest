@@ -2,12 +2,16 @@
 import { url } from '@/lib/url';
 import { formEndpoint } from '@/data/company';
 
+// L'ordre reflete le positionnement : la renovation globale d'abord,
+// les savoir-faire ensuite.
 const projectTypes = [
-  ['enduit-monocouche', 'Enduit monocouche'],
-  ['facade', 'Façade'],
+  ['renovation-complete', 'Rénovation complète'],
+  ['renovation-interieure', 'Rénovation intérieure'],
+  ['renovation-exterieure', 'Rénovation extérieure'],
   ['peinture-interieure', 'Peinture intérieure'],
   ['pose-de-sols', 'Pose de sols'],
-  ['renovation', 'Rénovation'],
+  ['facade', 'Façade'],
+  ['enduit-monocouche', 'Enduit monocouche'],
   ['autre', 'Autre'],
 ];
 const row = 'display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr))';

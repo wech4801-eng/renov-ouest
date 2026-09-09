@@ -20,8 +20,8 @@ const cards = projects.map((p) => ({
 }));
 ---
 <BaseLayout
-  title="Réalisations — Chantiers de façade et rénovation | Renov'Ouest"
-  description="Les chantiers réalisés par Renov'Ouest à Saint-Jean-de-la-Croix, Angers et en Maine-et-Loire : façade, enduit, peinture intérieure, pose de sols."
+  title="Réalisations — Projets de rénovation | Renov'Ouest Angers"
+  description="Les projets de rénovation menés par Rénov'Ouest à Saint-Jean-de-la-Croix, Angers et en Maine-et-Loire : rénovation complète, intérieure et extérieure."
   path="/realisations"
   noindex={isEmpty}
   pageType="CollectionPage"
@@ -29,10 +29,10 @@ const cards = projects.map((p) => ({
 >
   <PageHeader
     kicker="RÉALISATIONS"
-    title="Nos chantiers"
+    title="Des projets transformés de A à Z"
     intro={isEmpty
-      ? "Les chantiers réalisés par Renov’Ouest seront publiés ici : type de travaux, description, commune, année et photos avant/après lorsqu’elles sont disponibles."
-      : "Chantiers réalisés par Renov’Ouest à Saint-Jean-de-la-Croix, Angers et en Maine-et-Loire."}
+      ? "Découvrez bientôt les réalisations Rénov’Ouest et notre manière d’aborder chaque projet : une vision globale de la rénovation, un travail soigné et une attention particulière portée au résultat final."
+      : "Découvrez les réalisations Rénov’Ouest et notre manière d’aborder chaque projet : une vision globale de la rénovation, un travail soigné et une attention particulière portée au résultat final."}
     titleWidth={30}
   />
 
@@ -42,13 +42,13 @@ const cards = projects.map((p) => ({
         <div class="blueprint on-surface" style="position: relative; padding: clamp(24px, 4vw, 40px); background: var(--color-accent-100)">
           <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
           <p style="font-size: 15.5px; line-height: 1.6; margin: 0; max-width: 62ch; color: var(--color-neutral-800)">
-            Aucun chantier n’est publié pour le moment. Chaque réalisation présentée ici
-            correspondra à un chantier réellement effectué par Renov’Ouest, avec ses photos,
-            la nature des travaux, la commune et l’année.
+            Aucun projet n’est publié pour le moment. Chaque réalisation présentée ici
+            correspondra à un chantier réellement mené par Rénov’Ouest, avec ses photos, la nature
+            des travaux — rénovation complète, intérieure ou extérieure — la commune et l’année.
           </p>
           <p style="font-size: 15.5px; line-height: 1.6; margin: 14px 0 0; max-width: 62ch; color: var(--color-neutral-800)">
-            En attendant, le détail de chaque prestation décrit précisément notre façon de
-            travailler, de la préparation des supports jusqu’aux finitions&nbsp;:
+            En attendant, le détail de chacun de nos savoir-faire décrit précisément notre façon
+            de travailler, de la préparation des supports jusqu’aux finitions&nbsp;:
           </p>
           <ul style="list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 10px">
             {services.map((s) => (
