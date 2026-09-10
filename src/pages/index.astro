@@ -6,7 +6,7 @@ import { company } from '@/data/company';
 import { services, servicesByFamily } from '@/data/services';
 const families = servicesByFamily();
 import { allServiceNodes } from '@/data/schema';
-import hero from '@/assets/hero-chantier.jpg';
+import hero from '@/assets/hero-renovation.webp';
 
 const care = [
   { n: '01', t: 'La préparation des supports' },
@@ -43,10 +43,11 @@ const kicker = 'font-family: var(--font-mono); font-size: 11px; letter-spacing: 
   <section class="on-dark" style="position: relative; background: #1e2b3a; color: #f7f4ef; overflow: hidden">
     <Image
       src={hero}
-      alt="Chantier de rénovation Rénov'Ouest : travaux intérieurs et reprise de toiture"
-      widths={[768, 1280, 1920, 2560]} sizes="100vw"
+      alt="Chantier Rénov’Ouest : aménagement intérieur sous combles et habillage de façade en cours"
+      widths={[640, 1024]} sizes="100vw"
       loading="eager" fetchpriority="high" format="avif" quality={70}
-      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% center; filter: brightness(1.12) saturate(1.05)"
+      class="rw-hero-img"
+      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% center; filter: brightness(1.12) saturate(1.05)"
     />
     <div aria-hidden="true" style="position: absolute; inset: 0; background: #1e2b3a; mix-blend-mode: multiply; opacity: 0.28"></div>
     <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(100deg, rgba(17,25,34,0.82) 0%, rgba(17,25,34,0.62) 40%, rgba(17,25,34,0.22) 74%, rgba(17,25,34,0.08) 100%)"></div>

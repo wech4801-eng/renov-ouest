@@ -294,6 +294,11 @@ textarea.input { min-height: 90px; resize: vertical; }
      taille plus presente fixee par le plancher du clamp. */
   .rw-hero-title br { display: none; }
 
+  /* La photo du hero est panoramique : sur un ecran vertical, le cadrage
+     centre tombe sur l'echafaudage. On decale vers les compagnons au travail,
+     qui restent le sujet lisible a cette largeur. */
+  .rw-hero-img { object-position: 70% center !important; }
+
   /* En-tete mobile : le logo reste cale a gauche, le nom de la marque est
      centre sur la largeur de la barre. Le bloc texte sort donc du flux du
      lien et se centre sur .rw-headbar (qui devient le repere). */
