@@ -293,6 +293,28 @@ textarea.input { min-height: 90px; resize: vertical; }
      Sur mobile on laisse le texte se repartir librement, ce qui permet la
      taille plus presente fixee par le plancher du clamp. */
   .rw-hero-title br { display: none; }
+
+  /* En-tete mobile : le logo reste cale a gauche, le nom de la marque est
+     centre sur la largeur de la barre. Le bloc texte sort donc du flux du
+     lien et se centre sur .rw-headbar (qui devient le repere). */
+  .rw-headbar { position: relative; }
+  .rw-brand img {
+    width: 68px !important;
+    height: 68px !important;
+  }
+  .rw-brand-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    text-align: center;
+  }
+  .rw-brand-name { font-size: 27px !important; }
+  /* Resserree pour tenir entre le logo et le bouton menu. */
+  .rw-brand-tag {
+    font-size: 8.5px !important;
+    letter-spacing: 0.1em !important;
+  }
 }
 @media (min-width: 1061px) {
   .rw-burger { display: none !important; }
