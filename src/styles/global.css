@@ -308,18 +308,19 @@ textarea.input { min-height: 90px; resize: vertical; }
     height: 68px !important;
   }
   .rw-brand-text {
+    /* Centrer sur la page laissait 20px de marge cote logo contre 44px cote
+       bouton : l'oeil voyait le texte decale. On centre donc dans l'espace
+       reellement libre. Le decalage se deduit des deux largeurs, il reste
+       juste quel que soit le gutter. */
+    --rw-logo: 68px;
+    --rw-burger: 44px;
     position: absolute;
-    left: 50%;
+    left: calc(50% + (var(--rw-logo) - var(--rw-burger)) / 2);
     transform: translateX(-50%);
     align-items: center;
     text-align: center;
   }
-  .rw-brand-name { font-size: 27px !important; }
-  /* Resserree pour tenir entre le logo et le bouton menu. */
-  .rw-brand-tag {
-    font-size: 8.5px !important;
-    letter-spacing: 0.1em !important;
-  }
+  .rw-brand-name { font-size: 40px !important; }
 }
 @media (min-width: 1061px) {
   .rw-burger { display: none !important; }
